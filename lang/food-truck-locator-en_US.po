@@ -1,0 +1,238 @@
+# Copyright (C) 2023 Romain Rebotier
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Food Truck Locator 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/food-truck-"
+"locator\n"
+"POT-Creation-Date: 2023-12-28T12:59:35+00:00\n"
+"PO-Revision-Date: 2023-12-28 14:05+0100\n"
+"Last-Translator: Romain Rebotier <contact@adreliaweb.fr>\n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Domain: food-truck-locator\n"
+
+#. Plugin Name of the plugin
+#: includes/FoodTruckLocator.php:75 includes/FoodTruckLocator.php:76
+msgid "Food Truck Locator"
+msgstr "Food Truck Locator"
+
+#. Description of the plugin
+msgid ""
+"Add a map of your food truck locations by date and time to keep your "
+"customers informed!"
+msgstr ""
+"Add a map of your food truck locations by date and time to keep your "
+"customers informed!"
+
+#. Author of the plugin
+msgid "Romain Rebotier"
+msgstr "Romain Rebotier"
+
+#. Author URI of the plugin
+msgid "https://www.adreliaweb.fr"
+msgstr "https://www.adreliaweb.fr"
+
+#: includes/FoodTruckLocator.php:83
+msgid "All locations"
+msgstr "All locations"
+
+#: includes/FoodTruckLocator.php:84
+msgid "Add a location"
+msgstr "Add a location"
+
+#: includes/FoodTruckLocator.php:85
+msgid "Settings"
+msgstr "Settings"
+
+#: includes/FoodTruckLocator.php:148
+msgid "General settings"
+msgstr "General settings"
+
+#: includes/FoodTruckLocator.php:162
+msgid "Name is required"
+msgstr "Name is required"
+
+#: includes/FoodTruckLocator.php:165
+msgid "Coordinates are required"
+msgstr "Coordinates are required"
+
+#: includes/FoodTruckLocator.php:177
+msgid "Location updated."
+msgstr "Location updated."
+
+#: includes/FoodTruckLocator.php:177
+msgid "Location created."
+msgstr "Location created."
+
+#: includes/FoodTruckLocator.php:181
+msgid "Error while updating the location."
+msgstr "Error while updating the location."
+
+#: includes/FoodTruckLocator.php:181
+msgid "Error while creating the location."
+msgstr "Error while creating the location."
+
+#: includes/FoodTruckLocator.php:189
+msgid "No location sent"
+msgstr "No location sent"
+
+#: includes/LocationsListTable.php:12 includes/LocationsListTable.php:109
+msgid "Location"
+msgstr "Location"
+
+#: includes/LocationsListTable.php:13
+msgid "Locations"
+msgstr "Locations"
+
+#: includes/LocationsListTable.php:65
+msgid "No location."
+msgstr "No location."
+
+#: includes/LocationsListTable.php:79
+msgid "Edit"
+msgstr "Edit"
+
+#: includes/LocationsListTable.php:80 includes/LocationsListTable.php:156
+msgid "Delete"
+msgstr "Delete"
+
+#: includes/LocationsListTable.php:110 views/edit.php:69 views/edit.php:230
+msgid "Visible"
+msgstr "Visible"
+
+#: includes/LocationsListTable.php:111
+msgid "Created on"
+msgstr "Created on"
+
+#: includes/LocationsListTable.php:112
+msgid "Updated on"
+msgstr "Updated on"
+
+#: includes/settings-general-section.php:10
+msgid "Marker color"
+msgstr "Marker color"
+
+#: includes/settings-general-section.php:16 views/rendering.php:10
+msgid "Vacation mode"
+msgstr "Vacation mode"
+
+#: includes/settings-general-section.php:20
+msgid ""
+"The vacation mode darken the map and add a message you can customize just "
+"right there"
+msgstr ""
+"The vacation mode darken the map and add a message you can customize just "
+"right there"
+
+#: includes/settings-general-section.php:25
+msgid "Vacation mode message"
+msgstr "Vacation mode message"
+
+#: views/edit.php:18
+msgid "No location found with this ID."
+msgstr "No location found with this ID."
+
+#: views/edit.php:34
+msgid "Location name"
+msgstr "Location name"
+
+#: views/edit.php:43
+msgid "Location description or additionnal information"
+msgstr "Location description or additionnal information"
+
+#: views/edit.php:51
+msgid "Position"
+msgstr "Position"
+
+#: views/edit.php:61
+msgid "Time table"
+msgstr "Time table"
+
+#: views/edit.php:64 views/list.php:9
+msgid "Add"
+msgstr "Add"
+
+#: views/edit.php:78
+msgid "Save changes"
+msgstr "Save changes"
+
+#: views/edit.php:92 views/rendering.php:42
+msgid "Monday"
+msgstr "Monday"
+
+#: views/edit.php:96 views/rendering.php:43
+msgid "Tuesday"
+msgstr "Tuesday"
+
+#: views/edit.php:100 views/rendering.php:44
+msgid "Wednesday"
+msgstr "Wednesday"
+
+#: views/edit.php:104 views/rendering.php:45
+msgid "Thursday"
+msgstr "Thursday"
+
+#: views/edit.php:108 views/rendering.php:46 views/rendering.php:47
+msgid "Friday"
+msgstr "Friday"
+
+#: views/edit.php:112 views/rendering.php:48
+msgid "Saturday"
+msgstr "Saturday"
+
+#: views/edit.php:116 views/rendering.php:41
+msgid "Sunday"
+msgstr "Sunday"
+
+#: views/edit.php:168
+msgid "Redirecting to locations list..."
+msgstr "Redirecting to locations list..."
+
+#: views/edit.php:197
+msgid "Hey! Drag me to one of your best spot!"
+msgstr "Hey! Drag me to one of your best spot!"
+
+#: views/edit.php:222
+msgid "From"
+msgstr "From"
+
+#: views/edit.php:226
+msgid "To"
+msgstr "To"
+
+#: views/list.php:8
+msgid "Food Truck locations"
+msgstr "Food Truck locations"
+
+#: views/list.php:13
+msgid "How to use it?"
+msgstr "How to use it?"
+
+#: views/list.php:14
+msgid "Just copy and paste the following shortcode in your page or post:"
+msgstr "Just copy and paste the following shortcode in your page or post:"
+
+#: views/list.php:15
+msgid ""
+"You can use the \"height\" option to define the height (css value, default "
+"is 50vh) of the map div like"
+msgstr ""
+"You can use the \"height\" option to define the height (css value, default "
+"is 50vh) of the map div like"
+
+#: views/rendering.php:38
+msgid "Now"
+msgstr "Now"
+
+#: views/rendering.php:39
+msgid "Next"
+msgstr "Next"
+
+#: views/settings.php:6
+msgid "Food Truck Locator settings"
+msgstr "Food Truck Locator settings"

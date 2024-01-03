@@ -1,0 +1,239 @@
+# Copyright (C) 2023 Romain Rebotier
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Food Truck Locator 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/food-truck-"
+"locator\n"
+"POT-Creation-Date: 2023-12-28T12:59:35+00:00\n"
+"PO-Revision-Date: 2023-12-28 14:11+0100\n"
+"Last-Translator: Romain Rebotier <contact@adreliaweb.fr>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Domain: food-truck-locator\n"
+
+#. Plugin Name of the plugin
+#: includes/FoodTruckLocator.php:75 includes/FoodTruckLocator.php:76
+msgid "Food Truck Locator"
+msgstr "Food Truck Locator"
+
+#. Description of the plugin
+msgid ""
+"Add a map of your food truck locations by date and time to keep your "
+"customers informed!"
+msgstr ""
+"Ajoutez une carte de vos emplacements de food truck avec vos créneaux "
+"horaires et tenez informés vos clients !"
+
+#. Author of the plugin
+msgid "Romain Rebotier"
+msgstr "Romain Rebotier"
+
+#. Author URI of the plugin
+msgid "https://www.adreliaweb.fr"
+msgstr "https://www.adreliaweb.fr"
+
+#: includes/FoodTruckLocator.php:83
+msgid "All locations"
+msgstr "Tous les emplacements"
+
+#: includes/FoodTruckLocator.php:84
+msgid "Add a location"
+msgstr "Ajouter un emplacement"
+
+#: includes/FoodTruckLocator.php:85
+msgid "Settings"
+msgstr "Paramètres"
+
+#: includes/FoodTruckLocator.php:148
+msgid "General settings"
+msgstr "Paramètres généraux"
+
+#: includes/FoodTruckLocator.php:162
+msgid "Name is required"
+msgstr "Le nom est obligatoire"
+
+#: includes/FoodTruckLocator.php:165
+msgid "Coordinates are required"
+msgstr "Les coordonnées sont obligatoires"
+
+#: includes/FoodTruckLocator.php:177
+msgid "Location updated."
+msgstr "Emplacement mis à jour."
+
+#: includes/FoodTruckLocator.php:177
+msgid "Location created."
+msgstr "Emplacement créé."
+
+#: includes/FoodTruckLocator.php:181
+msgid "Error while updating the location."
+msgstr "Erreur durant la mise à jour de l'emplacement."
+
+#: includes/FoodTruckLocator.php:181
+msgid "Error while creating the location."
+msgstr "Erreur durant la création de l'emplacement."
+
+#: includes/FoodTruckLocator.php:189
+msgid "No location sent"
+msgstr "Aucun emplacement envoyé"
+
+#: includes/LocationsListTable.php:12 includes/LocationsListTable.php:109
+msgid "Location"
+msgstr "Emplacement"
+
+#: includes/LocationsListTable.php:13
+msgid "Locations"
+msgstr "Emplacements"
+
+#: includes/LocationsListTable.php:65
+msgid "No location."
+msgstr "Aucun emplacement."
+
+#: includes/LocationsListTable.php:79
+msgid "Edit"
+msgstr "Modifier"
+
+#: includes/LocationsListTable.php:80 includes/LocationsListTable.php:156
+msgid "Delete"
+msgstr "Supprimer"
+
+#: includes/LocationsListTable.php:110 views/edit.php:69 views/edit.php:230
+msgid "Visible"
+msgstr "Visible"
+
+#: includes/LocationsListTable.php:111
+msgid "Created on"
+msgstr "Créé le"
+
+#: includes/LocationsListTable.php:112
+msgid "Updated on"
+msgstr "Modifié le"
+
+#: includes/settings-general-section.php:10
+msgid "Marker color"
+msgstr "Couleur du repère"
+
+#: includes/settings-general-section.php:16 views/rendering.php:10
+msgid "Vacation mode"
+msgstr "Mode vacances"
+
+#: includes/settings-general-section.php:20
+msgid ""
+"The vacation mode darken the map and add a message you can customize just "
+"right there"
+msgstr ""
+"Le mode vacances assombrit la carte et ajoute un message que vous pouvez "
+"personnaliser juste ici"
+
+#: includes/settings-general-section.php:25
+msgid "Vacation mode message"
+msgstr "Message du mode vacances"
+
+#: views/edit.php:18
+msgid "No location found with this ID."
+msgstr "Aucun emplacement trouvé avec cet ID."
+
+#: views/edit.php:34
+msgid "Location name"
+msgstr "Nom de l'emplacement"
+
+#: views/edit.php:43
+msgid "Location description or additionnal information"
+msgstr "Description de l'emplacement ou informations complémentaires"
+
+#: views/edit.php:51
+msgid "Position"
+msgstr "Position"
+
+#: views/edit.php:61
+msgid "Time table"
+msgstr "Créneaux horaires"
+
+#: views/edit.php:64 views/list.php:9
+msgid "Add"
+msgstr "Ajouter"
+
+#: views/edit.php:78
+msgid "Save changes"
+msgstr "Enregistrer"
+
+#: views/edit.php:92 views/rendering.php:42
+msgid "Monday"
+msgstr "Lundi"
+
+#: views/edit.php:96 views/rendering.php:43
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: views/edit.php:100 views/rendering.php:44
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: views/edit.php:104 views/rendering.php:45
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: views/edit.php:108 views/rendering.php:46 views/rendering.php:47
+msgid "Friday"
+msgstr "Vendredi"
+
+#: views/edit.php:112 views/rendering.php:48
+msgid "Saturday"
+msgstr "Samedi"
+
+#: views/edit.php:116 views/rendering.php:41
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: views/edit.php:168
+msgid "Redirecting to locations list..."
+msgstr "Redirection vers la liste des emplacements..."
+
+#: views/edit.php:197
+msgid "Hey! Drag me to one of your best spot!"
+msgstr "Hey ! Déplacez moi vers l'un de vos meilleurs emplacements !"
+
+#: views/edit.php:222
+msgid "From"
+msgstr "De"
+
+#: views/edit.php:226
+msgid "To"
+msgstr "A"
+
+#: views/list.php:8
+msgid "Food Truck locations"
+msgstr "Emplacements du food truck"
+
+#: views/list.php:13
+msgid "How to use it?"
+msgstr "Comment l'utiliser ?"
+
+#: views/list.php:14
+msgid "Just copy and paste the following shortcode in your page or post:"
+msgstr ""
+"Copiez/collez simplement the shortcode suivant dans votre page ou post :"
+
+#: views/list.php:15
+msgid ""
+"You can use the \"height\" option to define the height (css value, default "
+"is 50vh) of the map div like"
+msgstr ""
+"Vous pouvez utiliser le paramètre \"height\" pour définir la hauteur "
+"(valeur CSS, par défaut à 50vh) de la div de la carte comme par exemple"
+
+#: views/rendering.php:38
+msgid "Now"
+msgstr "En cours"
+
+#: views/rendering.php:39
+msgid "Next"
+msgstr "Prochain"
+
+#: views/settings.php:6
+msgid "Food Truck Locator settings"
+msgstr "Paramètres de Food Truck Locator"
