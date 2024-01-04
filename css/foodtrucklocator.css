@@ -54,6 +54,10 @@
     background-color: inherit;
 }
 
+#foodtrucklocator_map.leaflet-container {
+    z-index: 0;
+}
+
 @keyframes foodtrucklocator_pulse {
     0% {
         box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
