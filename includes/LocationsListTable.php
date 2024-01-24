@@ -4,7 +4,7 @@ if (!class_exists('WP_List_Table')) {
     require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 }
 
-class Locations_List extends WP_List_Table
+class FoodTruckLocator_Locations_List extends WP_List_Table
 {
     public function __construct()
     {
@@ -25,7 +25,7 @@ class Locations_List extends WP_List_Table
      */
     public static function getLocations($rows = 5, $pageNumber = 1)
     {
-        return Queries::GetLocations($pageNumber, $rows, $_REQUEST['orderby'], $_REQUEST['order']);
+        return FoodTruckLocator_Queries::GetLocations($pageNumber, $rows, $_REQUEST['orderby'], $_REQUEST['order']);
     }
 
     /**
@@ -36,7 +36,7 @@ class Locations_List extends WP_List_Table
     public static function recordCount()
     {
         global $wpdb;
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}" . Queries::LOCATIONS_TABLE;
+        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}" . FoodTruckLocator_Queries::LOCATIONS_TABLE;
         return $wpdb->get_var($sql);
     }
 
@@ -49,12 +49,12 @@ class Locations_List extends WP_List_Table
     {
         global $wpdb;
         $wpdb->delete(
-            "{$wpdb->prefix}" . Queries::TIMETABLES_TABLE,
+            "{$wpdb->prefix}" . FoodTruckLocator_Queries::TIMETABLES_TABLE,
             ['location_id' => $id],
             ['%d']
         );
         $wpdb->delete(
-            "{$wpdb->prefix}" . Queries::LOCATIONS_TABLE,
+            "{$wpdb->prefix}" . FoodTruckLocator_Queries::LOCATIONS_TABLE,
             ['id' => $id],
             ['%d']
         );

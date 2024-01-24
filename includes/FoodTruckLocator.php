@@ -112,7 +112,7 @@ class FoodTruckLocator
 
     public function install()
     {
-        Queries::CreateTables();
+        FoodTruckLocator_Queries::CreateTables();
         add_option('foodtrucklocator_db_version', $this->version);
     }
 
@@ -120,12 +120,12 @@ class FoodTruckLocator
     {
         delete_option('foodtrucklocator_db_version');
         delete_option('foodtrucklocator_settings');
-        Queries::DropTables();
+        FoodTruckLocator_Queries::DropTables();
     }
 
     public function upgrade()
     {
-        Queries::CreateTables();
+        FoodTruckLocator_Queries::CreateTables();
         update_option('foodtrucklocator_db_version', $this->version);
     }
 
@@ -163,11 +163,11 @@ class FoodTruckLocator
             }
             if (empty($error)) {
                 if (!empty($_POST['location']['id'])) {
-                    $result = Queries::UpdateLocation($_POST['location']);
-                    Queries::removeTimeTables($_POST['location']['id']);
+                    $result = FoodTruckLocator_Queries::UpdateLocation($_POST['location']);
+                    FoodTruckLocator_Queries::removeTimeTables($_POST['location']['id']);
                     $result += $this->saveTimeTables($_POST['location']['id'], $_POST['timeTables']);
                 } else {
-                    $result = Queries::CreateLocation($_POST['location']);
+                    $result = FoodTruckLocator_Queries::CreateLocation($_POST['location']);
                     $result += $this->saveTimeTables($result, $_POST['timeTables']);
                 }
                 if ($result > 0) {
@@ -191,7 +191,7 @@ class FoodTruckLocator
     {
         $result = 0;
         foreach ($timeTables as $timeTable) {
-            $result += Queries::AddTimeTableToLocation($locationId, $timeTable);
+            $result += FoodTruckLocator_Queries::AddTimeTableToLocation($locationId, $timeTable);
         }
         return $result;
     }

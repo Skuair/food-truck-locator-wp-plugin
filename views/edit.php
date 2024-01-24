@@ -3,11 +3,18 @@ if (!defined('ABSPATH')) die('No direct access allowed');
 
 $location = new stdClass();
 $timeTables = [];
+$settings = get_option('foodtrucklocator_settings');
+$markerColor = '#000';
+if ($settings) {
+    if ($settings['marker_color']) {
+        $markerColor = $settings['marker_color'];
+    }
+}
 if ($_GET['locationId']) {
-    $result = Queries::GetLocationById($_GET['locationId']);
+    $result = FoodTruckLocator_Queries::GetLocationById($_GET['locationId']);
     if ($result) {
         $location = $result[0];
-        $resultTimeTables = Queries::GetTimeTablesByLocationId($_GET['locationId']);
+        $resultTimeTables = FoodTruckLocator_Queries::GetTimeTablesByLocationId($_GET['locationId']);
         if ($resultTimeTables) {
             $timeTables = $resultTimeTables;
         }
@@ -195,6 +202,12 @@ if ($_GET['locationId']) {
         L.marker(coords, {
                 draggable: true,
                 autoPan: true,
+                icon: L.divIcon({
+                    className: "custom-marker",
+                    iconAnchor: [15, 30],
+                    popupAnchor: [0, -30],
+                    html: `<div style="background-color: <?php echo $markerColor; ?>"></div>`,
+                })
             })
             .bindPopup(`<?php _e('Hey! Drag me to one of your best spot!', 'food-truck-locator'); ?> 🚐`)
             .on('moveend', (e) => setLocation(e.target.getLatLng()))
@@ -255,3 +268,14 @@ if ($_GET['locationId']) {
         }
     }
 </script>
+
+<style>
+    #map .leaflet-marker-icon.custom-marker>div {
+        width: 30px;
+        height: 30px;
+        display: block;
+        border-radius: 1.5rem 1.5rem 0;
+        border: 1px solid #fff;
+        transform: rotate(45deg);
+    }
+</style>

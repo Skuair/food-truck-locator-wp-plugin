@@ -1,6 +1,6 @@
 <?php
 
-class Queries
+class FoodTruckLocator_Queries
 {
     const LOCATIONS_TABLE = 'foodtrucklocator_locations';
     const TIMETABLES_TABLE = 'foodtrucklocator_timetables';

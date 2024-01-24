@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) die('No direct access allowed');
 
 $locations = [];
 $page = 1;
-$locations = Queries::GetAllPublicLocationsWithTimeTables();
+$locations = FoodTruckLocator_Queries::GetAllPublicLocationsWithTimeTables();
 $settings = get_option('foodtrucklocator_settings');
 $markerColor = '#000';
 $vacationMode = false;

@@ -17,7 +17,7 @@ include(plugin_dir_path(__FILE__) . '../includes/LocationsListTable.php');
     </div>
     <form method="post">
         <?php
-        $locations = new Locations_List();
+        $locations = new FoodTruckLocator_Locations_List();
         $locations->prepare_items();
         $locations->display();
         ?>
