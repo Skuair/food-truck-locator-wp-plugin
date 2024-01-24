@@ -25,7 +25,9 @@ if ($_GET['locationId']) {
 ?>
 
 <div class="wrap">
-    <h1><?php _e($_GET['locationId'] ? 'Edit location' : 'Add location', 'food-truck-locator'); ?></h1>
+    <h1>
+        <?php $_GET['locationId'] ? _e('Edit a location', 'food-truck-locator') : _e('Add a location', 'food-truck-locator'); ?>
+    </h1>
     <form id="locationForm" name="locationForm" method="POST">
         <table class="form-table">
             <tbody>

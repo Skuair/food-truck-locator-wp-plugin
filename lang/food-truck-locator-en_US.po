@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Food Truck Locator 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/food-truck-"
 "locator\n"
-"POT-Creation-Date: 2023-12-28T12:59:35+00:00\n"
-"PO-Revision-Date: 2023-12-28 14:05+0100\n"
+"POT-Creation-Date: 2024-01-24T21:32:57+00:00\n"
+"PO-Revision-Date: 2024-01-24 22:34+0100\n"
 "Last-Translator: Romain Rebotier <contact@adreliaweb.fr>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Domain: food-truck-locator\n"
 
 #. Plugin Name of the plugin
-#: includes/FoodTruckLocator.php:75 includes/FoodTruckLocator.php:76
+#: includes/FoodTruckLocator.php:72 includes/FoodTruckLocator.php:73
 msgid "Food Truck Locator"
 msgstr "Food Truck Locator"
 
@@ -37,47 +37,47 @@ msgstr "Romain Rebotier"
 msgid "https://www.adreliaweb.fr"
 msgstr "https://www.adreliaweb.fr"
 
-#: includes/FoodTruckLocator.php:83
+#: includes/FoodTruckLocator.php:80
 msgid "All locations"
 msgstr "All locations"
 
-#: includes/FoodTruckLocator.php:84
+#: includes/FoodTruckLocator.php:81 views/edit.php:29
 msgid "Add a location"
 msgstr "Add a location"
 
-#: includes/FoodTruckLocator.php:85
+#: includes/FoodTruckLocator.php:82
 msgid "Settings"
 msgstr "Settings"
 
-#: includes/FoodTruckLocator.php:148
+#: includes/FoodTruckLocator.php:145
 msgid "General settings"
 msgstr "General settings"
 
-#: includes/FoodTruckLocator.php:162
+#: includes/FoodTruckLocator.php:159
 msgid "Name is required"
 msgstr "Name is required"
 
-#: includes/FoodTruckLocator.php:165
+#: includes/FoodTruckLocator.php:162
 msgid "Coordinates are required"
 msgstr "Coordinates are required"
 
-#: includes/FoodTruckLocator.php:177
+#: includes/FoodTruckLocator.php:174
 msgid "Location updated."
 msgstr "Location updated."
 
-#: includes/FoodTruckLocator.php:177
+#: includes/FoodTruckLocator.php:174
 msgid "Location created."
 msgstr "Location created."
 
-#: includes/FoodTruckLocator.php:181
+#: includes/FoodTruckLocator.php:178
 msgid "Error while updating the location."
 msgstr "Error while updating the location."
 
-#: includes/FoodTruckLocator.php:181
+#: includes/FoodTruckLocator.php:178
 msgid "Error while creating the location."
 msgstr "Error while creating the location."
 
-#: includes/FoodTruckLocator.php:189
+#: includes/FoodTruckLocator.php:186
 msgid "No location sent"
 msgstr "No location sent"
 
@@ -101,7 +101,7 @@ msgstr "Edit"
 msgid "Delete"
 msgstr "Delete"
 
-#: includes/LocationsListTable.php:110 views/edit.php:69 views/edit.php:230
+#: includes/LocationsListTable.php:110 views/edit.php:71 views/edit.php:232
 msgid "Visible"
 msgstr "Visible"
 
@@ -137,71 +137,75 @@ msgstr "Vacation mode message"
 msgid "No location found with this ID."
 msgstr "No location found with this ID."
 
-#: views/edit.php:34
+#: views/edit.php:29
+msgid "Edit a location"
+msgstr "Edit a location"
+
+#: views/edit.php:36
 msgid "Location name"
 msgstr "Location name"
 
-#: views/edit.php:43
+#: views/edit.php:45
 msgid "Location description or additionnal information"
 msgstr "Location description or additionnal information"
 
-#: views/edit.php:51
+#: views/edit.php:53
 msgid "Position"
 msgstr "Position"
 
-#: views/edit.php:61
+#: views/edit.php:63
 msgid "Time table"
 msgstr "Time table"
 
-#: views/edit.php:64 views/list.php:9
+#: views/edit.php:66 views/list.php:9
 msgid "Add"
 msgstr "Add"
 
-#: views/edit.php:78
+#: views/edit.php:80
 msgid "Save changes"
 msgstr "Save changes"
 
-#: views/edit.php:92 views/rendering.php:42
+#: views/edit.php:94 views/rendering.php:55
 msgid "Monday"
 msgstr "Monday"
 
-#: views/edit.php:96 views/rendering.php:43
+#: views/edit.php:98 views/rendering.php:56
 msgid "Tuesday"
 msgstr "Tuesday"
 
-#: views/edit.php:100 views/rendering.php:44
+#: views/edit.php:102 views/rendering.php:57
 msgid "Wednesday"
 msgstr "Wednesday"
 
-#: views/edit.php:104 views/rendering.php:45
+#: views/edit.php:106 views/rendering.php:58
 msgid "Thursday"
 msgstr "Thursday"
 
-#: views/edit.php:108 views/rendering.php:46 views/rendering.php:47
+#: views/edit.php:110 views/rendering.php:59 views/rendering.php:60
 msgid "Friday"
 msgstr "Friday"
 
-#: views/edit.php:112 views/rendering.php:48
+#: views/edit.php:114 views/rendering.php:61
 msgid "Saturday"
 msgstr "Saturday"
 
-#: views/edit.php:116 views/rendering.php:41
+#: views/edit.php:118 views/rendering.php:54
 msgid "Sunday"
 msgstr "Sunday"
 
-#: views/edit.php:168
+#: views/edit.php:170
 msgid "Redirecting to locations list..."
 msgstr "Redirecting to locations list..."
 
-#: views/edit.php:197
+#: views/edit.php:199
 msgid "Hey! Drag me to one of your best spot!"
 msgstr "Hey! Drag me to one of your best spot!"
 
-#: views/edit.php:222
+#: views/edit.php:224
 msgid "From"
 msgstr "From"
 
-#: views/edit.php:226
+#: views/edit.php:228
 msgid "To"
 msgstr "To"
 
