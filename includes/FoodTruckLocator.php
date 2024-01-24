@@ -2,9 +2,6 @@
 
 class FoodTruckLocator
 {
-    const LEAFLET_JS_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-    const LEAFLET_CSS_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-
     protected $views = [
         'list' => 'views/list',
         'edit' => 'views/edit',
@@ -52,8 +49,8 @@ class FoodTruckLocator
 
     public function addScripts()
     {
-        wp_enqueue_script('leaflet', self::LEAFLET_JS_URL, [], null);
-        wp_enqueue_style('leaflet', self::LEAFLET_CSS_URL, [], null);
+        wp_enqueue_script('leaflet', plugins_url('food-truck-locator') . '/js/leaflet_1.9.4.js', []);
+        wp_enqueue_style('leaflet', plugins_url('food-truck-locator') . '/css/leaflet_1.9.4.css', []);
         wp_enqueue_script('foodtrucklocator', plugins_url('food-truck-locator') . '/js/foodtrucklocator.js', ['leaflet'], $this->version, true);
         wp_enqueue_style('foodtrucklocator', plugins_url('food-truck-locator') . '/css/foodtrucklocator.css', [], $this->version);
     }
@@ -64,8 +61,8 @@ class FoodTruckLocator
         if (strpos($current_screen->base, 'foodtrucklocator') === false) {
             return;
         } else {
-            wp_enqueue_script('leaflet', self::LEAFLET_JS_URL, [], null);
-            wp_enqueue_style('leaflet', self::LEAFLET_CSS_URL, [], null);
+            wp_enqueue_script('leaflet', plugins_url('food-truck-locator') . '/js/leaflet_1.9.4.js', []);
+            wp_enqueue_style('leaflet', plugins_url('food-truck-locator') . '/css/leaflet_1.9.4.css', []);
         }
     }
 
