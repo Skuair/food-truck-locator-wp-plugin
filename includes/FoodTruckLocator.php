@@ -31,7 +31,7 @@ class FoodTruckLocator
 
     private function _getCurrentView()
     {
-        $currentPage = isset($_GET['page']) ? $_GET['page'] : 'list';
+        $currentPage = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : 'list';
         if (strpos($currentPage, '-') === false) {
             return 'list';
         }
@@ -151,7 +151,7 @@ class FoodTruckLocator
 
     public function ajaxSaveLocation()
     {
-        check_ajax_referer('edit-location_' . ($_POST['location']['id'] ? $_POST['location']['id'] : 0));
+        check_ajax_referer('edit-location_' . ($_POST['location']['id'] ? absint(sanitize_key($_POST['location']['id'])) : 0));
         if (!empty($_POST['location'])) {
             $result = 0;
             $error = [];
@@ -163,9 +163,10 @@ class FoodTruckLocator
             }
             if (empty($error)) {
                 if (!empty($_POST['location']['id'])) {
+                    $locationId = absint(sanitize_key($_POST['location']['id']));
                     $result = FoodTruckLocator_Queries::UpdateLocation($_POST['location']);
-                    FoodTruckLocator_Queries::removeTimeTables($_POST['location']['id']);
-                    $result += $this->saveTimeTables($_POST['location']['id'], $_POST['timeTables']);
+                    FoodTruckLocator_Queries::removeTimeTables($locationId);
+                    $result += $this->saveTimeTables($locationId, $_POST['timeTables']);
                 } else {
                     $result = FoodTruckLocator_Queries::CreateLocation($_POST['location']);
                     $result += $this->saveTimeTables($result, $_POST['timeTables']);

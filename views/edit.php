@@ -11,10 +11,11 @@ if ($settings) {
     }
 }
 if ($_GET['locationId']) {
-    $result = FoodTruckLocator_Queries::GetLocationById($_GET['locationId']);
+    $locationId = absint(sanitize_key($_GET['locationId']));
+    $result = FoodTruckLocator_Queries::GetLocationById($locationId);
     if ($result) {
         $location = $result[0];
-        $resultTimeTables = FoodTruckLocator_Queries::GetTimeTablesByLocationId($_GET['locationId']);
+        $resultTimeTables = FoodTruckLocator_Queries::GetTimeTablesByLocationId($locationId);
         if ($resultTimeTables) {
             $timeTables = $resultTimeTables;
         }
@@ -83,7 +84,7 @@ if ($_GET['locationId']) {
             </tbody>
         </table>
         <?php
-        wp_nonce_field('edit-location_' . ($_GET['locationId'] ? $_GET['locationId'] : 0));
+        wp_nonce_field('edit-location_' . ($_GET['locationId'] ? sanitize_key($_GET['locationId']) : 0));
         submit_button(__('Save changes', 'food-truck-locator'), 'primary', 'save');
         ?>
     </form>

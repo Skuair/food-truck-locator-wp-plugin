@@ -25,7 +25,7 @@ class FoodTruckLocator_Locations_List extends WP_List_Table
      */
     public static function getLocations($rows = 5, $pageNumber = 1)
     {
-        return FoodTruckLocator_Queries::GetLocations($pageNumber, $rows, $_REQUEST['orderby'], $_REQUEST['order']);
+        return FoodTruckLocator_Queries::GetLocations($pageNumber, $rows, sanitize_sql_orderby($_REQUEST['orderby']), sanitize_sql_orderby($_REQUEST['order']));
     }
 
     /**
@@ -77,7 +77,7 @@ class FoodTruckLocator_Locations_List extends WP_List_Table
         $title = sprintf('<a href="?page=%s&locationId=%d"><strong>%s</strong></a>', esc_attr('foodtrucklocator-edit'), absint($item['id']), $item['name']);
         $actions = [
             'edit' => sprintf('<a href="?page=%s&locationId=%d">%s</a>', esc_attr('foodtrucklocator-edit'), absint($item['id']), __('Edit', 'food-truck-locator')),
-            'delete' => sprintf('<a href="?page=%s&action=%s&location=%s&_wpnonce=%s">%s</a>', esc_attr($_REQUEST['page']), 'delete', absint($item['id']), wp_create_nonce('foodtrucklocator_delete_location'), __('Delete', 'food-truck-locator'))
+            'delete' => sprintf('<a href="?page=%s&action=%s&location=%s&_wpnonce=%s">%s</a>', esc_attr(sanitize_text_field($_REQUEST['page'])), 'delete', absint($item['id']), wp_create_nonce('foodtrucklocator_delete_location'), __('Delete', 'food-truck-locator'))
         ];
         return $title . $this->row_actions($actions);
     }
@@ -185,19 +185,19 @@ class FoodTruckLocator_Locations_List extends WP_List_Table
         //Detect when a bulk action is being triggered...
         if ('delete' === $this->current_action()) {
             // In our file that handles the request, verify the nonce.
-            $nonce = esc_attr($_REQUEST['_wpnonce']);
+            $nonce = sanitize_key($_REQUEST['_wpnonce']);
             if (!wp_verify_nonce($nonce, 'foodtrucklocator_delete_location')) {
                 die('Unauthorized');
             } else {
-                self::deleteLocation(absint($_GET['location']));
+                self::deleteLocation(absint(sanitize_key($_GET['location'])));
             }
         }
 
         // If the delete bulk action is triggered
-        if ((isset($_POST['action']) && $_POST['action'] == 'bulk-delete')
-            || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-delete')
+        if ((isset($_POST['action']) && sanitize_text_field($_POST['action']) == 'bulk-delete')
+            || (isset($_POST['action2']) && sanitize_text_field($_POST['action2']) == 'bulk-delete')
         ) {
-            $delete_ids = esc_sql($_POST['bulk-delete']);
+            $delete_ids = wp_parse_id_list($_POST['bulk-delete']);
             // loop over the array of record IDs and delete them
             foreach ($delete_ids as $id) {
                 self::deleteLocation($id);
