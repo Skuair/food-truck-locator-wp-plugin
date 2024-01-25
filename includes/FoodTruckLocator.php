@@ -86,7 +86,7 @@ class FoodTruckLocator
     {
         $this->current_page = $this->_getCurrentView();
         $currentView = isset($this->views[$this->current_page]) ? $this->views[$this->current_page] : $this->views['list'];
-        echo '<div class="foodtrucklocator ' . $this->current_page . '">';
+        echo '<div class="foodtrucklocator ' . esc_attr($this->current_page) . '">';
         echo '<div class="container">';
         echo '<div class="inner">';
         $this->includeView($this->_getViewPath($currentView));

@@ -25,18 +25,18 @@ if ($vacationMode) {
 ?>
     <div id="foodtrucklocator_vacation_banner">
         <p id="icon">🏖️</p>
-        <p id="message"><?php echo $vacationMessage; ?></p>
+        <p id="message"><?php echo esc_html($vacationMessage); ?></p>
     </div>
 <?php
 }
 ?>
-<div id="foodtrucklocator_map" class="<?php echo $vacationMode ? 'vacation' : ''; ?>" style="height: <?php echo $heightDiv; ?>;">
+<div id="foodtrucklocator_map" class="<?php echo $vacationMode ? 'vacation' : ''; ?>" style="height: <?php echo esc_attr($heightDiv); ?>;">
 </div>
 
 <script>
     const strings = {
-        now: '<?php _e('Now', 'food-truck-locator'); ?>',
-        next: '<?php _e('Next', 'food-truck-locator'); ?>',
+        now: '<?php esc_html_e('Now', 'food-truck-locator'); ?>',
+        next: '<?php esc_html_e('Next', 'food-truck-locator'); ?>',
         weekDays: [],
     };
 
@@ -51,18 +51,18 @@ if ($vacationMode) {
         }
     } catch (error) {
         strings.weekDays = [
-            '<?php _e('Sunday', 'food-truck-locator'); ?>',
-            '<?php _e('Monday', 'food-truck-locator'); ?>',
-            '<?php _e('Tuesday', 'food-truck-locator'); ?>',
-            '<?php _e('Wednesday', 'food-truck-locator'); ?>',
-            '<?php _e('Thursday', 'food-truck-locator'); ?>',
-            '<?php _e('Friday', 'food-truck-locator'); ?>',
-            '<?php _e('Friday', 'food-truck-locator'); ?>',
-            '<?php _e('Saturday', 'food-truck-locator'); ?>',
+            '<?php esc_html_e('Sunday', 'food-truck-locator'); ?>',
+            '<?php esc_html_e('Monday', 'food-truck-locator'); ?>',
+            '<?php esc_html_e('Tuesday', 'food-truck-locator'); ?>',
+            '<?php esc_html_e('Wednesday', 'food-truck-locator'); ?>',
+            '<?php esc_html_e('Thursday', 'food-truck-locator'); ?>',
+            '<?php esc_html_e('Friday', 'food-truck-locator'); ?>',
+            '<?php esc_html_e('Friday', 'food-truck-locator'); ?>',
+            '<?php esc_html_e('Saturday', 'food-truck-locator'); ?>',
         ];
     }
 
-    let locations = <?php echo json_encode($locations); ?>;
+    let locations = <?php echo wp_json_encode($locations); ?>;
     locations.sort((a, b) => parseInt(a.weekday) - parseInt(b.weekday)); // Sort timetables by weekday for better visualization
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -70,7 +70,7 @@ if ($vacationMode) {
             locations,
             <?php echo $vacationMode ? 'true' : 'false'; ?>,
             strings,
-            '<?php echo $markerColor; ?>'
+            '<?php echo esc_attr($markerColor); ?>'
         );
         foodTruckLocator.renderMap();
     });

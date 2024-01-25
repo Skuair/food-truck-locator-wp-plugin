@@ -62,7 +62,7 @@ class FoodTruckLocator_Locations_List extends WP_List_Table
 
     public function no_items()
     {
-        _e('No location.', 'food-truck-locator');
+        esc_html_e('No location.', 'food-truck-locator');
     }
 
     /**

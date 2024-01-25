@@ -23,7 +23,7 @@ if ($_GET['locationId']) {
 ?>
         <div class="notice notice-error">
             <p>
-                <?php _e('No location found with this ID.', 'food-truck-locator'); ?>
+                <?php esc_html_e('No location found with this ID.', 'food-truck-locator'); ?>
             </p>
         </div>
 <?php
@@ -34,49 +34,49 @@ if ($_GET['locationId']) {
 
 <div class="wrap">
     <h1>
-        <?php $_GET['locationId'] ? _e('Edit a location', 'food-truck-locator') : _e('Add a location', 'food-truck-locator'); ?>
+        <?php $_GET['locationId'] ? esc_html_e('Edit a location', 'food-truck-locator') : esc_html_e('Add a location', 'food-truck-locator'); ?>
     </h1>
     <form id="locationForm" name="locationForm" method="POST">
         <table class="form-table">
             <tbody>
                 <tr>
                     <th scope="row">
-                        <label for="name"><?php _e('Location name', 'food-truck-locator'); ?></label>
+                        <label for="name"><?php esc_html_e('Location name', 'food-truck-locator'); ?></label>
                     </th>
                     <td>
-                        <input type="text" id="name" name="name" value="<?php echo wp_unslash($location->name); ?>">
-                        <input type="hidden" name="id" id="id" value="<?php echo $location->id; ?>">
+                        <input type="text" id="name" name="name" value="<?php echo esc_attr($location->name); ?>">
+                        <input type="hidden" name="id" id="id" value="<?php echo esc_attr($location->id); ?>">
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="description"><?php _e('Location description or additionnal information', 'food-truck-locator'); ?></label>
+                        <label for="description"><?php esc_html_e('Location description or additionnal information', 'food-truck-locator'); ?></label>
                     </th>
                     <td>
-                        <textarea id="description" name="description" style="width: 100%;"><?php echo wp_unslash($location->description); ?></textarea>
+                        <textarea id="description" name="description" style="width: 100%;"><?php echo esc_textarea($location->description); ?></textarea>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label><?php _e('Position', 'food-truck-locator'); ?></label>
+                        <label><?php esc_html_e('Position', 'food-truck-locator'); ?></label>
                     </th>
                     <td>
                         <div id="map" style="height: 50vh;"></div>
-                        <input type="hidden" name="latitude" id="latitude" value="<?php echo $location->latitude; ?>">
-                        <input type="hidden" name="longitude" id="longitude" value="<?php echo $location->longitude; ?>">
+                        <input type="hidden" name="latitude" id="latitude" value="<?php echo esc_attr($location->latitude); ?>">
+                        <input type="hidden" name="longitude" id="longitude" value="<?php echo esc_attr($location->longitude); ?>">
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label><?php _e('Time table', 'food-truck-locator'); ?></label>
+                        <label><?php esc_html_e('Time table', 'food-truck-locator'); ?></label>
                     </th>
                     <td id="timetables">
-                        <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable();"><?php _e('Add', 'food-truck-locator'); ?></button>
+                        <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable();"><?php esc_html_e('Add', 'food-truck-locator'); ?></button>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="visible"><?php _e('Visible', 'food-truck-locator'); ?></label>
+                        <label for="visible"><?php esc_html_e('Visible', 'food-truck-locator'); ?></label>
                     </th>
                     <td id="timetables">
                         <input type="checkbox" name="visible" id="visible" value="1" <?php echo $location->visible || !$location->id ? ' checked="checked"' : ''; ?>; </td>
@@ -84,7 +84,7 @@ if ($_GET['locationId']) {
             </tbody>
         </table>
         <?php
-        wp_nonce_field('edit-location_' . ($_GET['locationId'] ? sanitize_key($_GET['locationId']) : 0));
+        wp_nonce_field('edit-location_' . ($_GET['locationId'] ? absint(sanitize_key($_GET['locationId'])) : 0));
         submit_button(__('Save changes', 'food-truck-locator'), 'primary', 'save');
         ?>
     </form>
@@ -99,31 +99,31 @@ if ($_GET['locationId']) {
     const lngField = document.querySelector('#longitude');
     const weekDays = [{
             value: 1,
-            label: '<?php _e('Monday', 'food-truck-locator'); ?>'
+            label: '<?php esc_html_e('Monday', 'food-truck-locator'); ?>'
         },
         {
             value: 2,
-            label: '<?php _e('Tuesday', 'food-truck-locator'); ?>'
+            label: '<?php esc_html_e('Tuesday', 'food-truck-locator'); ?>'
         },
         {
             value: 3,
-            label: '<?php _e('Wednesday', 'food-truck-locator'); ?>'
+            label: '<?php esc_html_e('Wednesday', 'food-truck-locator'); ?>'
         },
         {
             value: 4,
-            label: '<?php _e('Thursday', 'food-truck-locator'); ?>'
+            label: '<?php esc_html_e('Thursday', 'food-truck-locator'); ?>'
         },
         {
             value: 5,
-            label: '<?php _e('Friday', 'food-truck-locator'); ?>'
+            label: '<?php esc_html_e('Friday', 'food-truck-locator'); ?>'
         },
         {
             value: 6,
-            label: '<?php _e('Saturday', 'food-truck-locator'); ?>'
+            label: '<?php esc_html_e('Saturday', 'food-truck-locator'); ?>'
         },
         {
             value: 0,
-            label: '<?php _e('Sunday', 'food-truck-locator'); ?>'
+            label: '<?php esc_html_e('Sunday', 'food-truck-locator'); ?>'
         },
     ];
 
@@ -175,7 +175,7 @@ if ($_GET['locationId']) {
                         feedback.removeClass().addClass('notice notice-success is-dismissible');
                         // Redirect to list page on creation only
                         if (!location.id) {
-                            feedback.append('<p><?php _e('Redirecting to locations list...', 'food-truck-locator'); ?></p>');
+                            feedback.append('<p><?php esc_html_e('Redirecting to locations list...', 'food-truck-locator'); ?></p>');
                             window.location.href = '<?php echo admin_url('admin.php?page=foodtrucklocator-list'); ?>';
                         }
                     } else {
@@ -195,7 +195,7 @@ if ($_GET['locationId']) {
             e.preventDefault();
         });
 
-        fillExistingTimeTables(<?php echo json_encode($timeTables); ?>);
+        fillExistingTimeTables(<?php echo wp_json_encode($timeTables); ?>);
     });
 
     function setMapView(coords, zoom) {
@@ -207,10 +207,10 @@ if ($_GET['locationId']) {
                     className: "custom-marker",
                     iconAnchor: [15, 30],
                     popupAnchor: [0, -30],
-                    html: `<div style="background-color: <?php echo $markerColor; ?>"></div>`,
+                    html: `<div style="background-color: <?php echo esc_attr($markerColor); ?>"></div>`,
                 })
             })
-            .bindPopup(`<?php _e('Hey! Drag me to one of your best spot!', 'food-truck-locator'); ?> 🚐`)
+            .bindPopup(`<?php esc_html_e('Hey! Drag me to one of your best spot!', 'food-truck-locator'); ?> 🚐`)
             .on('moveend', (e) => setLocation(e.target.getLatLng()))
             .addTo(map)
             .openPopup();
@@ -235,15 +235,15 @@ if ($_GET['locationId']) {
         const visible = jQuery('<input>').attr('type', 'checkbox').addClass('visible').val(1);
         jQuery(weekDays).each((i, e) => selectDay.append(jQuery('<option>').attr('value', e.value).text(e.label)));
         selectDay.val(timeTable.weekday);
-        jQuery('<span>').html('<?php _e('From', 'food-truck-locator'); ?> ')
+        jQuery('<span>').html('<?php esc_html_e('From', 'food-truck-locator'); ?> ')
             .append(fromTime)
             .appendTo(div);
         fromTime.val(timeTable.start_time);
-        jQuery('<span>').html('<?php _e('To', 'food-truck-locator'); ?> ')
+        jQuery('<span>').html('<?php esc_html_e('To', 'food-truck-locator'); ?> ')
             .append(toTime)
             .appendTo(div);
         toTime.val(timeTable.end_time);
-        jQuery('<span>').html('<?php _e('Visible', 'food-truck-locator'); ?> ')
+        jQuery('<span>').html('<?php esc_html_e('Visible', 'food-truck-locator'); ?> ')
             .append(visible)
             .appendTo(div);
         visible.prop('checked', timeTable.visible === '1' || !timeTable.id);
