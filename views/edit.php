@@ -134,9 +134,12 @@ if ($_GET['locationId']) {
             setMapView([latField.value, lngField.value], 18);
         } else {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => setMapView([position.coords.latitude, position.coords.longitude], 14));
+                navigator.geolocation.getCurrentPosition(
+                    (position) => setMapView([position.coords.latitude, position.coords.longitude], 14),
+                    () => setDefaultMapView(),
+                );
             } else {
-                setMapView([44.9763, 5.1080], 3); //Default french touch view 🥖
+                setDefaultMapView();
             }
         }
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -214,6 +217,10 @@ if ($_GET['locationId']) {
             .on('moveend', (e) => setLocation(e.target.getLatLng()))
             .addTo(map)
             .openPopup();
+    }
+
+    function setDefaultMapView() {
+        setMapView([44.9763, 5.1080], 3); //Default french touch view 🥖
     }
 
     function setLocation(coords) {
