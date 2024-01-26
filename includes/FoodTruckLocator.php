@@ -153,30 +153,32 @@ class FoodTruckLocator
     {
         check_ajax_referer('edit-location_' . ($_POST['location']['id'] ? absint(sanitize_key($_POST['location']['id'])) : 0));
         if (!empty($_POST['location'])) {
+            $location = stripslashes_deep($_POST['location']);
+            $timetables = $_POST['timeTables'];
             $result = 0;
             $error = [];
-            if (!$_POST['location']['name']) {
+            if (!$location['name']) {
                 $error[] = __('Name is required', 'food-truck-locator');
             }
-            if (!$_POST['location']['latitude'] && !$_POST['location']['longitude']) {
+            if (!$location['latitude'] && !$location['longitude']) {
                 $error[] = __('Coordinates are required', 'food-truck-locator');
             }
             if (empty($error)) {
-                if (!empty($_POST['location']['id'])) {
-                    $locationId = absint(sanitize_key($_POST['location']['id']));
-                    $result = FoodTruckLocator_Queries::UpdateLocation($_POST['location']);
+                if (!empty($location['id'])) {
+                    $locationId = absint(sanitize_key($location['id']));
+                    $result = FoodTruckLocator_Queries::UpdateLocation($location);
                     FoodTruckLocator_Queries::removeTimeTables($locationId);
-                    $result += $this->saveTimeTables($locationId, $_POST['timeTables']);
+                    $result += $this->saveTimeTables($locationId, $timetables);
                 } else {
-                    $result = FoodTruckLocator_Queries::CreateLocation($_POST['location']);
-                    $result += $this->saveTimeTables($result, $_POST['timeTables']);
+                    $result = FoodTruckLocator_Queries::CreateLocation($location);
+                    $result += $this->saveTimeTables($result, $timetables);
                 }
                 if ($result > 0) {
-                    wp_send_json_success(['message' => !empty($_POST['location']['id']) ? __('Location updated.', 'food-truck-locator') : __('Location created.', 'food-truck-locator')]);
+                    wp_send_json_success(['message' => !empty($location['id']) ? __('Location updated.', 'food-truck-locator') : __('Location created.', 'food-truck-locator')]);
                 } else {
                     global $wpdb;
                     wp_send_json_error([
-                        'message' => !empty($_POST['location']['id']) ? __('Error while updating the location.', 'food-truck-locator') : __('Error while creating the location.', 'food-truck-locator'),
+                        'message' => !empty($location['id']) ? __('Error while updating the location.', 'food-truck-locator') : __('Error while creating the location.', 'food-truck-locator'),
                         'details' => $wpdb->last_error,
                     ]);
                 }
