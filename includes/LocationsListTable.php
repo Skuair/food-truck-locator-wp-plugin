@@ -36,8 +36,7 @@ class FoodTruckLocator_Locations_List extends WP_List_Table
     public static function recordCount()
     {
         global $wpdb;
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}" . FoodTruckLocator_Queries::LOCATIONS_TABLE;
-        return $wpdb->get_var($sql);
+        return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}" . FoodTruckLocator_Queries::LOCATIONS_TABLE));
     }
 
     /**

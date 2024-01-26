@@ -44,8 +44,8 @@ class FoodTruckLocator_Queries
     public static function DropTables()
     {
         global $wpdb;
-        $wpdb->query('DROP TABLE IF EXISTS ' . $wpdb->prefix . self::TIMETABLES_TABLE);
-        $wpdb->query('DROP TABLE IF EXISTS ' . $wpdb->prefix . self::LOCATIONS_TABLE);
+        $wpdb->query($wpdb->prepare("DROP TABLE IF EXISTS {$wpdb->prefix}" . self::TIMETABLES_TABLE));
+        $wpdb->query($wpdb->prepare("DROP TABLE IF EXISTS {$wpdb->prefix}" . self::LOCATIONS_TABLE));
     }
 
     public static function GetLocations($pageNumber = 1, $rows = 10, $orderBy = '', $order = '')
@@ -56,7 +56,7 @@ class FoodTruckLocator_Queries
         $sql .= " ORDER BY " . (!empty($orderBy) ? esc_sql($orderBy) : 'name') . (!empty($order) ? ' ' . esc_sql($order) : ' ASC');
         $sql .= " LIMIT $rows";
         $sql .= ' OFFSET ' . ($pageNumber - 1) * $rows;
-        return $wpdb->get_results($sql, 'ARRAY_A');
+        return $wpdb->get_results($wpdb->prepare($sql), 'ARRAY_A');
     }
 
     public static function GetAllPublicLocationsWithTimeTables()
@@ -67,20 +67,21 @@ class FoodTruckLocator_Queries
         $sql .= " FROM {$wpdb->prefix}" . self::LOCATIONS_TABLE . " l";
         $sql .= " LEFT JOIN {$wpdb->prefix}" . self::TIMETABLES_TABLE . " t";
         $sql .= " ON l.id = t.location_id";
-        $sql .= " WHERE l.visible = 1 AND t.visible = 1";
-        return $wpdb->get_results($sql, 'ARRAY_A');
+        $sql .= " WHERE l.visible = %d AND t.visible = %d";
+        $sqlPrepared = $wpdb->prepare($sql, [1, 1]);
+        return $wpdb->get_results($sqlPrepared, 'ARRAY_A');
     }
 
     public static function GetLocationById($locationId)
     {
         global $wpdb;
-        return $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . self::LOCATIONS_TABLE . ' WHERE id = ' . filter_var($locationId, FILTER_SANITIZE_NUMBER_INT));
+        return $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}" . self::LOCATIONS_TABLE . " WHERE id = %d", [$locationId]));
     }
 
     public static function GetTimeTablesByLocationId($locationId)
     {
         global $wpdb;
-        return $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . self::TIMETABLES_TABLE . ' WHERE location_id = ' . filter_var($locationId, FILTER_SANITIZE_NUMBER_INT));
+        return $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}" . self::TIMETABLES_TABLE . " WHERE location_id = %d", [$locationId]));
     }
 
     public static function CreateLocation($location)
@@ -130,6 +131,6 @@ class FoodTruckLocator_Queries
     public static function removeTimeTables($locationId)
     {
         global $wpdb;
-        return $wpdb->delete($wpdb->prefix . self::TIMETABLES_TABLE, ['location_id' => filter_var($locationId, FILTER_SANITIZE_NUMBER_INT)], ['%d']);
+        return $wpdb->delete($wpdb->prefix . self::TIMETABLES_TABLE, ['location_id' => $locationId], ['%d']);
     }
 }
