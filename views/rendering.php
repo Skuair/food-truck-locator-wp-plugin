@@ -9,13 +9,13 @@ $markerColor = '#000';
 $vacationMode = false;
 $vacationMessage = __('Vacation mode', 'food-truck-locator');
 if ($settings) {
-    if ($settings['marker_color']) {
+    if (isset($settings['marker_color'])) {
         $markerColor = $settings['marker_color'];
     }
-    if ($settings['vacation_mode']) {
+    if (isset($settings['vacation_mode'])) {
         $vacationMode = true;
     }
-    if ($settings['vacation_mode_message']) {
+    if (isset($settings['vacation_mode_message'])) {
         $vacationMessage = $settings['vacation_mode_message'];
     }
 }

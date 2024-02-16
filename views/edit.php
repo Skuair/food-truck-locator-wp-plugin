@@ -179,7 +179,7 @@ if ($_GET['locationId']) {
                         // Redirect to list page on creation only
                         if (!location.id) {
                             feedback.append('<p><?php esc_html_e('Redirecting to locations list...', 'food-truck-locator'); ?></p>');
-                            window.location.href = '<?php echo admin_url('admin.php?page=foodtrucklocator-list'); ?>';
+                            window.location.href = '<?php echo esc_url(admin_url('admin.php?page=foodtrucklocator-list')); ?>';
                         }
                     } else {
                         feedback.removeClass().addClass('notice notice-error');

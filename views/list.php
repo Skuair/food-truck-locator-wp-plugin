@@ -6,7 +6,7 @@ include(plugin_dir_path(__FILE__) . '../includes/LocationsListTable.php');
 ?>
 <div class="wrap">
     <h1 class="wp-heading-inline"><?php esc_html_e('Food Truck locations', 'food-truck-locator'); ?></h1>
-    <a href="<?php echo admin_url('admin.php?page=foodtrucklocator-edit'); ?>" class="page-title-action"><?php esc_html_e('Add', 'food-truck-locator'); ?></a>
+    <a href="<?php echo esc_url(admin_url('admin.php?page=foodtrucklocator-edit')); ?>" class="page-title-action"><?php esc_html_e('Add', 'food-truck-locator'); ?></a>
     <div style="display: flex; align-items: center; border: 1px solid rgba(34, 113, 177, 1); background-color: rgba(34, 113, 177, 0.1);">
         <span class="dashicons dashicons-lightbulb" style="margin: 1rem;"></span>
         <p>
