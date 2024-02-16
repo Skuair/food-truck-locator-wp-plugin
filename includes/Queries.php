@@ -56,7 +56,8 @@ class FoodTruckLocator_Queries
         $sql .= " ORDER BY " . (!empty($orderBy) ? esc_sql($orderBy) : 'name') . (!empty($order) ? ' ' . esc_sql($order) : ' ASC');
         $sql .= " LIMIT $rows";
         $sql .= ' OFFSET ' . ($pageNumber - 1) * $rows;
-        return $wpdb->get_results($wpdb->prepare($sql), 'ARRAY_A');
+        $sqlPrepared = $wpdb->prepare($sql, []);
+        return $wpdb->get_results($sqlPrepared, 'ARRAY_A');
     }
 
     public static function GetAllPublicLocationsWithTimeTables()
