@@ -10,12 +10,13 @@ if ($settings) {
         $markerColor = $settings['marker_color'];
     }
 }
-if ($_GET['locationId']) {
-    $locationId = absint(sanitize_key($_GET['locationId']));
-    $result = FoodTruckLocator_Queries::GetLocationById($locationId);
+$locationId = sanitize_key($_GET['locationId']);
+if ($locationId) {
+    $locationIdValidated = absint($locationId);
+    $result = FoodTruckLocator_Queries::GetLocationById($locationIdValidated);
     if ($result) {
         $location = $result[0];
-        $resultTimeTables = FoodTruckLocator_Queries::GetTimeTablesByLocationId($locationId);
+        $resultTimeTables = FoodTruckLocator_Queries::GetTimeTablesByLocationId($locationIdValidated);
         if ($resultTimeTables) {
             $timeTables = $resultTimeTables;
         }
@@ -34,7 +35,7 @@ if ($_GET['locationId']) {
 
 <div class="wrap">
     <h1>
-        <?php $_GET['locationId'] ? esc_html_e('Edit a location', 'food-truck-locator') : esc_html_e('Add a location', 'food-truck-locator'); ?>
+        <?php $locationId ? esc_html_e('Edit a location', 'food-truck-locator') : esc_html_e('Add a location', 'food-truck-locator'); ?>
     </h1>
     <form id="locationForm" name="locationForm" method="POST">
         <table class="form-table">
@@ -84,7 +85,7 @@ if ($_GET['locationId']) {
             </tbody>
         </table>
         <?php
-        wp_nonce_field('edit-location_' . ($_GET['locationId'] ? absint(sanitize_key($_GET['locationId'])) : 0));
+        wp_nonce_field('edit-location_' . ($locationId ? absint($locationId) : 0));
         submit_button(__('Save changes', 'food-truck-locator'), 'primary', 'save');
         ?>
     </form>

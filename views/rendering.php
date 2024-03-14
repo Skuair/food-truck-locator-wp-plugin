@@ -42,7 +42,7 @@ if ($vacationMode) {
 
     // Try to get localized days of week, otherwise get them from backend
     try {
-        var baseDate = new Date(Date.UTC(2023, 11, 31)); // begin with a known sunday 2023-12-31)
+        var baseDate = new Date(Date.UTC(2023, 11, 31)); // begin with a known sunday (2023-12-31)
         for (i = 0; i < 7; i++) {
             strings.weekDays.push(baseDate.toLocaleDateString(window.navigator.language, {
                 weekday: 'long'

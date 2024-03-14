@@ -89,8 +89,8 @@ class FoodTruckLocator_Queries
     {
         global $wpdb;
         $wpdb->insert($wpdb->prefix . self::LOCATIONS_TABLE, [
-            'name' => sanitize_text_field($location['name']),
-            'description' => sanitize_text_field($location['description']),
+            'name' => stripslashes(sanitize_text_field($location['name'])),
+            'description' => stripslashes(sanitize_text_field($location['description'])),
             'latitude' => filter_var($location['latitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
             'longitude' => filter_var($location['longitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
             'visible' => $location['visible'] ? filter_var($location['visible'], FILTER_SANITIZE_NUMBER_INT) : 0,
@@ -104,8 +104,8 @@ class FoodTruckLocator_Queries
     {
         global $wpdb;
         $update = $wpdb->update($wpdb->prefix . self::LOCATIONS_TABLE, [
-            'name' => sanitize_text_field($location['name']),
-            'description' => sanitize_text_field($location['description']),
+            'name' => stripslashes(sanitize_text_field($location['name'])),
+            'description' => stripslashes(sanitize_text_field($location['description'])),
             'latitude' => filter_var($location['latitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
             'longitude' => filter_var($location['longitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
             'visible' => $location['visible'] ? filter_var($location['visible'], FILTER_SANITIZE_NUMBER_INT) : 0,

@@ -106,7 +106,7 @@ class FoodTruckLocator
             // End buffering and return its contents
             $output = ob_get_clean();
         }
-        print $output;
+        print $output; // All echo'd variables are escaped inside the template returned
         return $output;
     }
 
@@ -151,34 +151,36 @@ class FoodTruckLocator
 
     public function ajaxSaveLocation()
     {
-        check_ajax_referer('edit-location_' . ($_POST['location']['id'] ? absint(sanitize_key($_POST['location']['id'])) : 0));
+        $locationId = sanitize_key($_POST['location']['id']);
+        check_ajax_referer('edit-location_' . ($locationId ? absint($locationId) : 0));
         if (!empty($_POST['location'])) {
-            $location = stripslashes_deep($_POST['location']);
-            $timetables = $_POST['timeTables'];
+            $locationName = sanitize_text_field($_POST['location']['name']);
+            $locationLatitude = filter_var($_POST['location']['latitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $locationLongitude = filter_var($_POST['location']['longitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
             $result = 0;
             $error = [];
-            if (!$location['name']) {
+            if (!$locationName) {
                 $error[] = __('Name is required', 'food-truck-locator');
             }
-            if (!$location['latitude'] && !$location['longitude']) {
+            if (!$locationLatitude && !$locationLongitude) {
                 $error[] = __('Coordinates are required', 'food-truck-locator');
             }
             if (empty($error)) {
-                if (!empty($location['id'])) {
-                    $locationId = absint(sanitize_key($location['id']));
-                    $result = FoodTruckLocator_Queries::UpdateLocation($location);
+                if ($locationId) {
+                    $locationId = absint($locationId);
+                    $result = FoodTruckLocator_Queries::UpdateLocation($_POST['location']); // POST sanitized inside the method
                     FoodTruckLocator_Queries::removeTimeTables($locationId);
-                    $result += $this->saveTimeTables($locationId, $timetables);
+                    $result += $this->saveTimeTables($locationId, $_POST['timeTables']); // POST sanitized inside the method
                 } else {
-                    $result = FoodTruckLocator_Queries::CreateLocation($location);
-                    $result += $this->saveTimeTables($result, $timetables);
+                    $result = FoodTruckLocator_Queries::CreateLocation($_POST['location']); // POST sanitized inside the method
+                    $result += $this->saveTimeTables($result, $_POST['timeTables']); // POST sanitized inside the method
                 }
                 if ($result > 0) {
-                    wp_send_json_success(['message' => !empty($location['id']) ? __('Location updated.', 'food-truck-locator') : __('Location created.', 'food-truck-locator')]);
+                    wp_send_json_success(['message' => $locationId ? __('Location updated.', 'food-truck-locator') : __('Location created.', 'food-truck-locator')]);
                 } else {
                     global $wpdb;
                     wp_send_json_error([
-                        'message' => !empty($location['id']) ? __('Error while updating the location.', 'food-truck-locator') : __('Error while creating the location.', 'food-truck-locator'),
+                        'message' => $locationId ? __('Error while updating the location.', 'food-truck-locator') : __('Error while creating the location.', 'food-truck-locator'),
                         'details' => $wpdb->last_error,
                     ]);
                 }
