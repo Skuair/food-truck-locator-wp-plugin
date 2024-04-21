@@ -95,19 +95,19 @@ class FoodTruckLocator
         echo '</div>';
     }
 
+    /**
+     * Print internal content (not user input) without escaping.
+     */
     private function includeView($filePath)
     {
-        $output = NULL;
+        $output = '';
         if (file_exists($filePath)) {
-            // Start output buffering
             ob_start();
-            // Include the template file
             include $filePath;
-            // End buffering and return its contents
-            $output = ob_get_clean();
+            $output = ob_get_contents();
+            ob_end_clean();
         }
-        print $output; // All echo'd variables are escaped inside the template returned
-        return $output;
+        echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     public function install()
