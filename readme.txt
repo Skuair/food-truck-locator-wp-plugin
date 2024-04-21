@@ -23,6 +23,9 @@ Your customers will see a map with your week locations, and depending when they 
 - Map directly informs visitors where you are now, depending on the browser local time, or your next location
 - Hide quickly a location or a day/time with a visible property
 
+Maps are rendered with the Leaflet library.
+Source code is available at https://github.com/Leaflet/Leaflet.
+
 **Translations**
 Currenlty english and french are supported.
 Translators are welcome.
