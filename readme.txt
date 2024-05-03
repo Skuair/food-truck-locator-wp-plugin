@@ -1,6 +1,6 @@
 === Food Truck Locator ===
 Contributors: skuair87
-Tags: location,timetable,food truck, street food,map,track,dates, events, schedule
+Tags: location,timetable,food truck, track, events
 Requires at least: 6.3
 Tested up to: 6.4.2
 Requires PHP: 7.4
@@ -17,11 +17,11 @@ Just create some locations with the admin interface by positionning a marker on 
 Your customers will see a map with your week locations, and depending when they visit your website, the current location (pulsing marker) or next location will popup on the map, showing at a glance where you are now or next time.
 
 **Features**
-- Create locations of your food truck and add days of the week and hours you are in
-- Map marker color customization
-- Vacation mode : activate and set a message to inform your customers that you are on vacation (the map will be darken and the message will be overlayed on the map)
-- Map directly informs visitors where you are now, depending on the browser local time, or your next location
-- Hide quickly a location or a day/time with a visible property
+– Create locations of your food truck and add days of the week and hours you are in
+– Map marker color customization
+– Vacation mode : activate and set a message to inform your customers that you are on vacation (the map will be darken and the message will be overlayed on the map)
+– Map directly informs visitors where you are now, depending on the browser local time, or your next location
+– Hide quickly a location or a day/time with a visible property
 
 Maps are rendered with the Leaflet library.
 Source code is available at https://github.com/Leaflet/Leaflet.
@@ -34,8 +34,8 @@ Translators are welcome.
 In your wp-admin page, just click on \"add new\" and search for \"Food Truck Locator\".
 
 Or manually,
-- Upload the plugin to the \"/wp-content/plugins\" directory
-- Activate the plugin through the \"Plugins\" menu in WordPress
+– Upload the plugin to the \"/wp-content/plugins\" directory
+– Activate the plugin through the \"Plugins\" menu in WordPress
 
 In the wp-admin, a new menu will be visible \"Food Truck Locator\" where you can change settings and add locations.
 
