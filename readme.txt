@@ -2,9 +2,9 @@
 Contributors: skuair87
 Tags: location,timetable,food truck, track, events
 Requires at least: 6.3
-Tested up to: 6.4.2
+Tested up to: 6.6.2
 Requires PHP: 7.4
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,5 +62,7 @@ For support for using the plugin, use the wordpress plugin forum.
 3. Admin creation of location
 
 == Changelog ==
+= 1.0.1 =
+Fix for JS loading.
 = 1.0 =
 Initial version.
