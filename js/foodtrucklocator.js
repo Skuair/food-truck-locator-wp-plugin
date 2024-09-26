@@ -4,12 +4,25 @@ class FoodTruckLocator {
     strings = {};
     markerColor = "#000";
     map;
+    daysWithMarkers = [];
+    layerGroupForDay;
+    dayListContainer;
 
-    constructor(locations, vacationMode, strings, markerColor) {
+    constructor(
+        locations,
+        vacationMode,
+        strings,
+        markerColor,
+        dayListContainer
+    ) {
         this.locations = locations;
         this.vacationMode = vacationMode;
         this.strings = strings;
         this.markerColor = markerColor;
+        this.dayListContainer = dayListContainer;
+        for (const [index, day] of strings.weekDays.entries()) {
+            this.daysWithMarkers[index] = [];
+        }
     }
 
     renderMap() {
@@ -98,11 +111,14 @@ class FoodTruckLocator {
                 {
                     icon: this.generateMarkerIcon(locationGrouped.location.now),
                 }
-            ).bindPopup(
+            );
+            marker.bindPopup(
                 this.generateMarkerPopup(
                     locationGrouped.location,
-                    locationGrouped.timeTables
-                )
+                    locationGrouped.timeTables,
+                    marker
+                ),
+                { autoClose: false }
             );
             locationGrouped.marker = marker;
             if (!this.vacationMode && locationGrouped.location.now) {
@@ -129,7 +145,7 @@ class FoodTruckLocator {
         }
     }
 
-    generateMarkerPopup(location, timeTables) {
+    generateMarkerPopup(location, timeTables, marker) {
         let content = `<div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
             <div style="margin-right: 0.25rem;">📍</div>
             <div>
@@ -165,6 +181,11 @@ class FoodTruckLocator {
                         }
                    </td> 
                 </tr>`;
+
+                // Create a list of markers associated to their day in week (for show days option)
+                if (!this.daysWithMarkers[timeTable.weekDay].includes(marker)) {
+                    this.daysWithMarkers[timeTable.weekDay].push(marker);
+                }
             }
         }
         content += "</table></div></div>";
@@ -232,5 +253,65 @@ class FoodTruckLocator {
         let [timePart, meridianPart] = timeObj.toLocaleTimeString().split(" ");
         timePart = timePart.slice(0, -3); // Remove unseless seconds
         return timePart + (meridianPart ? " " + meridianPart : "");
+    }
+
+    generateDaysList(div) {
+        for (const [day, markers] of this.daysWithMarkers.entries()) {
+            if (markers.length > 0) {
+                const p = document.createElement("p");
+                const isToday = new Date().getDay() === day;
+                if (isToday) {
+                    p.style.backgroundColor = this.markerColor + "7a";
+                }
+                p.innerHTML =
+                    strings.weekDays[day] +
+                    (markers.length > 1
+                        ? ` <span class="badgeCount">${markers.length}</span>`
+                        : ``);
+                p.addEventListener(
+                    "mouseenter",
+                    () => (p.style.backgroundColor = this.markerColor)
+                );
+                p.addEventListener(
+                    "mouseleave",
+                    () =>
+                        (p.style.backgroundColor = isToday
+                            ? this.markerColor + "7a"
+                            : "transparent")
+                );
+                p.addEventListener("click", () =>
+                    this.openLocationsForDayOfWeek(day)
+                );
+                div.appendChild(p);
+            }
+        }
+    }
+
+    toggleDayList() {
+        if (this.dayListContainer) {
+            this.dayListContainer.classList.toggle("open");
+        }
+    }
+
+    openLocationsForDayOfWeek(dayOfWeek) {
+        if (this.daysWithMarkers[dayOfWeek].length > 0) {
+            if (this.layerGroupForDay) {
+                this.map.removeLayer(this.layerGroupForDay);
+            }
+            this.map.eachLayer((layer) => layer.closePopup());
+            setTimeout(() => {
+                for (const marker of this.daysWithMarkers[dayOfWeek]) {
+                    marker.openPopup();
+                }
+            }, 250);
+
+            this.layerGroupForDay = L.featureGroup(
+                this.daysWithMarkers[dayOfWeek]
+            ).addTo(this.map);
+            this.map.fitBounds(this.layerGroupForDay.getBounds(), {
+                padding: [100, 100],
+            });
+            this.toggleDayList();
+        }
     }
 }

@@ -8,6 +8,7 @@ $settings = get_option('foodtrucklocator_settings');
 $markerColor = '#000';
 $vacationMode = false;
 $vacationMessage = __('Vacation mode', 'food-truck-locator');
+$showDays = false;
 if ($settings) {
     if (isset($settings['marker_color'])) {
         $markerColor = $settings['marker_color'];
@@ -18,22 +19,42 @@ if ($settings) {
     if (isset($settings['vacation_mode_message'])) {
         $vacationMessage = $settings['vacation_mode_message'];
     }
+    if (isset($settings['show_days'])) {
+        $showDays = true;
+    }
 }
 
 $heightDiv = $shortcodeOptions['height'] ? $shortcodeOptions['height'] : '50vh';
-if ($vacationMode) {
+
 ?>
-    <div id="foodtrucklocator_vacation_banner">
-        <p id="icon">🏖️</p>
-        <p id="message"><?php echo esc_html($vacationMessage); ?></p>
-    </div>
-<?php
-}
-?>
-<div id="foodtrucklocator_map" class="<?php echo $vacationMode ? 'vacation' : ''; ?>" style="height: <?php echo esc_attr($heightDiv); ?>;">
+<div id="foodtrucklocator_container">
+    <?php
+    if ($vacationMode) {
+    ?>
+        <div id="foodtrucklocator_vacation_banner">
+            <p id="icon">🏖️</p>
+            <p id="message"><?php echo esc_html($vacationMessage); ?></p>
+        </div>
+    <?php
+    }
+    if ($showDays) {
+    ?>
+        <div id="foodtrucklocator_show_days_list_container">
+            <div id="foodtrucklocator_show_days_list_opener" onclick="javascript: foodTruckLocator.toggleDayList();">
+                <span id="foodtrucklocator_show_days_list_opener_open">📆</span>
+                <span id="foodtrucklocator_show_days_list_opener_close">❌</span>
+            </div>
+            <div id="foodtrucklocator_show_days_list"></div>
+        </div>
+    <?php
+    }
+    ?>
+    <div id="foodtrucklocator_map" class="<?php echo $vacationMode ? 'vacation' : ''; ?>" style="height: <?php echo esc_attr($heightDiv); ?>;"></div>
 </div>
 
+
 <script>
+    let foodTruckLocator;
     const strings = {
         now: '<?php esc_html_e('Now', 'food-truck-locator'); ?>',
         next: '<?php esc_html_e('Next', 'food-truck-locator'); ?>',
@@ -66,12 +87,19 @@ if ($vacationMode) {
     locations.sort((a, b) => parseInt(a.weekday) - parseInt(b.weekday)); // Sort timetables by weekday for better visualization
 
     window.addEventListener('DOMContentLoaded', () => {
-        const foodTruckLocator = new FoodTruckLocator(
+        foodTruckLocator = new FoodTruckLocator(
             locations,
             <?php echo $vacationMode ? 'true' : 'false'; ?>,
             strings,
-            '<?php echo esc_attr($markerColor); ?>'
+            '<?php echo esc_attr($markerColor); ?>',
+            document.querySelector('#foodtrucklocator_show_days_list_container')
         );
         foodTruckLocator.renderMap();
+
+        // Populate the show days list
+        const showDaysList = document.querySelector('#foodtrucklocator_show_days_list');
+        if (showDaysList) {
+            foodTruckLocator.generateDaysList(showDaysList);
+        }
     });
 </script>
