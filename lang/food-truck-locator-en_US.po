@@ -5,15 +5,15 @@ msgstr ""
 "Project-Id-Version: Food Truck Locator 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/food-truck-"
 "locator\n"
-"POT-Creation-Date: 2024-01-24T21:32:57+00:00\n"
-"PO-Revision-Date: 2024-01-24 22:34+0100\n"
+"POT-Creation-Date: 2024-09-27T06:49:39+00:00\n"
+"PO-Revision-Date: 2024-09-27 08:51+0200\n"
 "Last-Translator: Romain Rebotier <contact@adreliaweb.fr>\n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Domain: food-truck-locator\n"
 
 #. Plugin Name of the plugin
@@ -41,7 +41,7 @@ msgstr "https://www.adreliaweb.fr"
 msgid "All locations"
 msgstr "All locations"
 
-#: includes/FoodTruckLocator.php:81 views/edit.php:29
+#: includes/FoodTruckLocator.php:81 views/edit.php:38
 msgid "Add a location"
 msgstr "Add a location"
 
@@ -53,35 +53,35 @@ msgstr "Settings"
 msgid "General settings"
 msgstr "General settings"
 
-#: includes/FoodTruckLocator.php:159
+#: includes/FoodTruckLocator.php:163
 msgid "Name is required"
 msgstr "Name is required"
 
-#: includes/FoodTruckLocator.php:162
+#: includes/FoodTruckLocator.php:166
 msgid "Coordinates are required"
 msgstr "Coordinates are required"
 
-#: includes/FoodTruckLocator.php:174
+#: includes/FoodTruckLocator.php:179
 msgid "Location updated."
 msgstr "Location updated."
 
-#: includes/FoodTruckLocator.php:174
+#: includes/FoodTruckLocator.php:179
 msgid "Location created."
 msgstr "Location created."
 
-#: includes/FoodTruckLocator.php:178
+#: includes/FoodTruckLocator.php:183
 msgid "Error while updating the location."
 msgstr "Error while updating the location."
 
-#: includes/FoodTruckLocator.php:178
+#: includes/FoodTruckLocator.php:183
 msgid "Error while creating the location."
 msgstr "Error while creating the location."
 
-#: includes/FoodTruckLocator.php:186
+#: includes/FoodTruckLocator.php:191
 msgid "No location sent"
 msgstr "No location sent"
 
-#: includes/LocationsListTable.php:12 includes/LocationsListTable.php:109
+#: includes/LocationsListTable.php:12 includes/LocationsListTable.php:108
 msgid "Location"
 msgstr "Location"
 
@@ -89,27 +89,27 @@ msgstr "Location"
 msgid "Locations"
 msgstr "Locations"
 
-#: includes/LocationsListTable.php:65
+#: includes/LocationsListTable.php:64
 msgid "No location."
 msgstr "No location."
 
-#: includes/LocationsListTable.php:79
+#: includes/LocationsListTable.php:78
 msgid "Edit"
 msgstr "Edit"
 
-#: includes/LocationsListTable.php:80 includes/LocationsListTable.php:156
+#: includes/LocationsListTable.php:79 includes/LocationsListTable.php:155
 msgid "Delete"
 msgstr "Delete"
 
-#: includes/LocationsListTable.php:110 views/edit.php:71 views/edit.php:232
+#: includes/LocationsListTable.php:109 views/edit.php:80 views/edit.php:254
 msgid "Visible"
 msgstr "Visible"
 
-#: includes/LocationsListTable.php:111
+#: includes/LocationsListTable.php:110
 msgid "Created on"
 msgstr "Created on"
 
-#: includes/LocationsListTable.php:112
+#: includes/LocationsListTable.php:111
 msgid "Updated on"
 msgstr "Updated on"
 
@@ -133,79 +133,91 @@ msgstr ""
 msgid "Vacation mode message"
 msgstr "Vacation mode message"
 
-#: views/edit.php:18
+#: includes/settings-general-section.php:33
+msgid "Show days list on map"
+msgstr "Show days list on map"
+
+#: includes/settings-general-section.php:37
+msgid ""
+"This will add a menu on the map to show the days when you have locations "
+"set. A click on a day will center the map on the related locations."
+msgstr ""
+"This will add a menu on the map to show the days when you have locations "
+"set. A click on a day will center the map on the related locations."
+
+#: views/edit.php:27
 msgid "No location found with this ID."
 msgstr "No location found with this ID."
 
-#: views/edit.php:29
+#: views/edit.php:38
 msgid "Edit a location"
 msgstr "Edit a location"
 
-#: views/edit.php:36
+#: views/edit.php:45
 msgid "Location name"
 msgstr "Location name"
 
-#: views/edit.php:45
+#: views/edit.php:54
 msgid "Location description or additionnal information"
 msgstr "Location description or additionnal information"
 
-#: views/edit.php:53
+#: views/edit.php:62
 msgid "Position"
 msgstr "Position"
 
-#: views/edit.php:63
+#: views/edit.php:72
 msgid "Time table"
 msgstr "Time table"
 
-#: views/edit.php:66 views/list.php:9
+#: views/edit.php:75 views/list.php:9
 msgid "Add"
 msgstr "Add"
 
-#: views/edit.php:80
+#: views/edit.php:89
 msgid "Save changes"
 msgstr "Save changes"
 
-#: views/edit.php:94 views/rendering.php:55
+#: views/edit.php:103 views/rendering.php:76
 msgid "Monday"
 msgstr "Monday"
 
-#: views/edit.php:98 views/rendering.php:56
+#: views/edit.php:107 views/rendering.php:77
 msgid "Tuesday"
 msgstr "Tuesday"
 
-#: views/edit.php:102 views/rendering.php:57
+#: views/edit.php:111 views/rendering.php:78
 msgid "Wednesday"
 msgstr "Wednesday"
 
-#: views/edit.php:106 views/rendering.php:58
+#: views/edit.php:115 views/rendering.php:79
 msgid "Thursday"
 msgstr "Thursday"
 
-#: views/edit.php:110 views/rendering.php:59 views/rendering.php:60
+#: views/edit.php:119 views/rendering.php:80 views/rendering.php:81
 msgid "Friday"
 msgstr "Friday"
 
-#: views/edit.php:114 views/rendering.php:61
+#: views/edit.php:123 views/rendering.php:82
 msgid "Saturday"
 msgstr "Saturday"
 
-#: views/edit.php:118 views/rendering.php:54
+#: views/edit.php:127 views/rendering.php:75
 msgid "Sunday"
 msgstr "Sunday"
 
-#: views/edit.php:170
+#: views/edit.php:182
 msgid "Redirecting to locations list..."
 msgstr "Redirecting to locations list..."
 
-#: views/edit.php:199
+#: views/edit.php:217
 msgid "Hey! Drag me to one of your best spot!"
 msgstr "Hey! Drag me to one of your best spot!"
 
-#: views/edit.php:224
+#: views/edit.php:246
 msgid "From"
 msgstr "From"
 
-#: views/edit.php:228
+#: views/edit.php:250
 msgid "To"
 msgstr "To"
 
@@ -229,11 +241,11 @@ msgstr ""
 "You can use the \"height\" option to define the height (css value, default "
 "is 50vh) of the map div like"
 
-#: views/rendering.php:38
+#: views/rendering.php:59
 msgid "Now"
 msgstr "Now"
 
-#: views/rendering.php:39
+#: views/rendering.php:60
 msgid "Next"
 msgstr "Next"
 
