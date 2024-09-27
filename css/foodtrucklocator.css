@@ -64,10 +64,11 @@
     color: #fff;
     height: 100%;
     right: 0;
-    transform: translateX(calc(100% - 3rem));
+    transform: translateX(80%);
     transition: transform 0.5s;
     display: flex;
     align-items: flex-start;
+    width: 30%;
 }
 
 #foodtrucklocator_show_days_list_container.open {
@@ -83,10 +84,10 @@
 
 #foodtrucklocator_show_days_list_opener {
     background-color: rgba(0, 0, 0, 0.75);
-    padding: 0.5rem;
+    padding: 0.5rem 0;
     cursor: pointer;
-    width: 2rem;
     text-align: center;
+    width: 20%;
 }
 
 #foodtrucklocator_show_days_list {
@@ -96,6 +97,8 @@
     justify-content: space-between;
     align-items: flex-start;
     overflow: hidden;
+    height: 100%;
+    width: 80%;
 }
 
 #foodtrucklocator_show_days_list p {
