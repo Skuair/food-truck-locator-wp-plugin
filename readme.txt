@@ -4,7 +4,7 @@ Tags: location, timetable, food truck, track, events
 Requires at least: 6.3
 Tested up to: 6.8.2
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,8 @@ For support for using the plugin, use the WordPress plugin forum.
 4. Day list mode
 
 == Changelog ==
+= 1.1.1 =
+Fixes for PHP warnings and translations.
 = 1.1.0 =
 Added an option to show days in a menu on the map when there is a spot, these move the map to the location on click.
 Fix for vacation mode rendering.
