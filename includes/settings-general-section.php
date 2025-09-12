@@ -16,7 +16,7 @@ function foodtrucklocator_settingsSectionGeneral($args)
                 <label for="foodtrucklocator_settings[vacation_mode]"><?php esc_html_e('Vacation mode', 'food-truck-locator'); ?></label>
             </th>
             <td>
-                <input type="checkbox" name="foodtrucklocator_settings[vacation_mode]" value="1" <?php echo $options['vacation_mode'] && $options['vacation_mode'] == '1' ? 'checked' : ''; ?>>
+                <input type="checkbox" name="foodtrucklocator_settings[vacation_mode]" value="1" <?php echo isset($options['vacation_mode']) && $options['vacation_mode'] == '1' ? 'checked' : ''; ?>>
                 <br /><small><?php esc_html_e('The vacation mode darken the map and add a message you can customize just right there', 'food-truck-locator'); ?></small>
             </td>
         </tr>
