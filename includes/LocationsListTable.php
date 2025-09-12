@@ -25,7 +25,7 @@ class FoodTruckLocator_Locations_List extends WP_List_Table
      */
     public static function getLocations($rows = 5, $pageNumber = 1)
     {
-        return FoodTruckLocator_Queries::GetLocations($pageNumber, $rows, sanitize_sql_orderby($_REQUEST['orderby']), sanitize_sql_orderby($_REQUEST['order']));
+        return FoodTruckLocator_Queries::GetLocations($pageNumber, $rows, isset($_REQUEST['orderby']) ? sanitize_sql_orderby($_REQUEST['orderby']) : '', isset($_REQUEST['order']) ? sanitize_sql_orderby($_REQUEST['order']) : '');
     }
 
     /**
