@@ -72,7 +72,8 @@ if ($locationId) {
                         <label><?php esc_html_e('Time table', 'food-truck-locator'); ?></label>
                     </th>
                     <td id="timetables">
-                        <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable();"><?php esc_html_e('Add', 'food-truck-locator'); ?></button>
+                        <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable();"><span class="dashicons dashicons-controls-repeat" style="vertical-align: middle;"></span> <?php esc_html_e('Add a regular date', 'food-truck-locator'); ?></button>
+                        <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable({}, true);"><span class="dashicons dashicons-calendar-alt" style="vertical-align: middle;"></span> <?php esc_html_e('Add a oneoff date', 'food-truck-locator'); ?></button>
                     </td>
                 </tr>
                 <tr>
@@ -157,45 +158,68 @@ if ($locationId) {
                 ...acc,
                 [name]: value
             }), {});
-            const timeTable = jQuery('#timetables .timetable').toArray().map((e) => ({
-                weekday: jQuery(e).find('.day').val(),
-                start_time: jQuery(e).find('.fromTime').val(),
-                end_time: jQuery(e).find('.toTime').val(),
-                visible: jQuery(e).find('.visible').is(":checked") ? '1' : '0',
-            }));
-            jQuery.ajax({
-                    data: {
-                        action: 'save_location',
-                        _ajax_nonce: jQuery('#_wpnonce').val(),
-                        location: location,
-                        timeTables: timeTable
-                    },
-                    type: 'post',
-                    url: ajaxurl,
-                })
-                .done(res => {
-                    jQuery(feedback.children()[0]).html(res.data.message);
-                    if (res.success) {
-                        feedback.removeClass().addClass('notice notice-success is-dismissible');
-                        // Redirect to list page on creation only
-                        if (!location.id) {
-                            feedback.append('<p><?php esc_html_e('Redirecting to locations list...', 'food-truck-locator'); ?></p>');
-                            window.location.href = '<?php echo esc_url(admin_url('admin.php?page=foodtrucklocator-list')); ?>';
+            // Check form errors on time tables
+            let errorOnTimeTable = false;
+            const timeTable = jQuery('#timetables .timetable').toArray().map((e) => {
+                const day = jQuery(e).find('.day');
+                const oneoffdate = jQuery(e).find('.oneoffdate');
+                const startTime = jQuery(e).find('.fromTime');
+                const endTime = jQuery(e).find('.toTime');
+                if (oneoffdate.length && !oneoffdate.val()) {
+                    errorOnTimeTable = true;
+                    jQuery(e).addClass('error');
+                }
+                if (!startTime.val() || !endTime.val()) {
+                    errorOnTimeTable = true;
+                    jQuery(e).addClass('error');
+                }
+                return {
+                    weekday: day.val() ?? null,
+                    date: oneoffdate.val() ?? null,
+                    start_time: startTime.val(),
+                    end_time: endTime.val(),
+                    visible: jQuery(e).find('.visible').is(":checked") ? '1' : '0',
+                };
+            });
+            if (errorOnTimeTable) {
+                feedback.removeClass().addClass('notice notice-error');
+                jQuery(feedback.children()[0]).html('<?php esc_html_e('Please correct the errors on the time table', 'food-truck-locator'); ?>');
+            } else {
+                jQuery('#timetables .timetable.error').removeClass('error');
+                jQuery.ajax({
+                        data: {
+                            action: 'save_location',
+                            _ajax_nonce: jQuery('#_wpnonce').val(),
+                            location: location,
+                            timeTables: timeTable
+                        },
+                        type: 'post',
+                        url: ajaxurl,
+                    })
+                    .done(res => {
+                        jQuery(feedback.children()[0]).html(res.data.message);
+                        if (res.success) {
+                            feedback.removeClass().addClass('notice notice-success is-dismissible');
+                            // Redirect to list page on creation only
+                            if (!location.id) {
+                                feedback.append('<p><?php esc_html_e('Redirecting to locations list...', 'food-truck-locator'); ?></p>');
+                                window.location.href = '<?php echo esc_url(admin_url('admin.php?page=foodtrucklocator-list')); ?>';
+                            }
+                        } else {
+                            feedback.removeClass().addClass('notice notice-error');
+                            if (res.data.details) {
+                                feedback.append('<p><em>' + res.data.details + '</em></p>');
+                            }
                         }
-                    } else {
+                    })
+                    .fail(error => {
                         feedback.removeClass().addClass('notice notice-error');
-                        if (res.data.details) {
-                            feedback.append('<p><em>' + res.data.details + '</em></p>');
-                        }
-                    }
-                })
-                .fail(error => {
-                    feedback.removeClass().addClass('notice notice-error');
-                    jQuery(feedback.children()[0]).html(error);
-                })
-                .always(() => jQuery('html, body').animate({
-                    scrollTop: feedback.offset().top
-                }, 2000));
+                        jQuery(feedback.children()[0]).html(error);
+                    })
+                    .always(() => jQuery('html, body').animate({
+                        scrollTop: feedback.offset().top
+                    }, 2000));
+            }
             e.preventDefault();
         });
 
@@ -229,7 +253,7 @@ if ($locationId) {
         lngField.value = coords.lng;
     }
 
-    function addTimeTable(timeTable = {}) {
+    function addTimeTable(timeTable = {}, oneoffDate = false) {
         const div = jQuery('<div>')
             .addClass('timetable')
             .css('display', 'flex')
@@ -237,12 +261,17 @@ if ($locationId) {
             .css('gap', '1rem')
             .css('margin-bottom', '1rem')
             .appendTo('#timetables');
-        const selectDay = jQuery('<select>').addClass('day').appendTo(div);
+        if (oneoffDate) {
+            const oneoffDate = jQuery('<input>').attr('type', 'date').addClass('oneoffdate').appendTo(div);
+            oneoffDate.val(timeTable.date);
+        } else {
+            const selectDay = jQuery('<select>').addClass('day').appendTo(div);
+            jQuery(weekDays).each((i, e) => selectDay.append(jQuery('<option>').attr('value', e.value).text(e.label)));
+            selectDay.val(timeTable.weekday);
+        }
         const fromTime = jQuery('<input>').attr('type', 'time').addClass('fromTime');
         const toTime = jQuery('<input>').attr('type', 'time').addClass('toTime');
         const visible = jQuery('<input>').attr('type', 'checkbox').addClass('visible').val(1);
-        jQuery(weekDays).each((i, e) => selectDay.append(jQuery('<option>').attr('value', e.value).text(e.label)));
-        selectDay.val(timeTable.weekday);
         jQuery('<span>').html('<?php esc_html_e('From', 'food-truck-locator'); ?> ')
             .append(fromTime)
             .appendTo(div);
@@ -273,7 +302,7 @@ if ($locationId) {
 
     function fillExistingTimeTables(timeTables) {
         for (const timeTable of timeTables) {
-            addTimeTable(timeTable);
+            addTimeTable(timeTable, timeTable.date && timeTable.date !== '0000-00-00');
         }
     }
 </script>
