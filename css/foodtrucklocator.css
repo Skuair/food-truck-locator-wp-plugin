@@ -64,7 +64,7 @@
     color: #fff;
     height: 100%;
     right: 0;
-    transform: translateX(calc(100% - 2rem + 1px));
+    transform: translateX(calc(100% - 3rem + 1px));
     transition: transform 0.5s;
     display: flex;
     align-items: flex-start;
@@ -86,7 +86,8 @@
     padding: 0.5rem 0;
     cursor: pointer;
     text-align: center;
-    width: 2rem;
+    width: 3rem;
+    border-radius: 50% 0 0 50%;
 }
 
 #foodtrucklocator_show_days_list {
@@ -103,16 +104,15 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    padding: 0.5rem;
 }
 
 #foodtrucklocator_show_days_list .header {
-    padding: 1rem;
     font-weight: bold;
 }
 
 #foodtrucklocator_show_days_list .day {
     cursor: pointer;
-    padding: 0.5rem;
 }
 
 #foodtrucklocator_show_days_list p .badgeCount {
