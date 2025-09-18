@@ -93,18 +93,26 @@
     display: flex;
     background-color: rgba(0, 0, 0, 0.75);
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: auto;
     height: 100%;
 }
 
 #foodtrucklocator_show_days_list p {
-    cursor: pointer;
-    padding: 1rem;
     margin: 0;
     width: 100%;
     box-sizing: border-box;
     display: flex;
     align-items: center;
+}
+
+#foodtrucklocator_show_days_list .header {
+    padding: 1rem;
+    font-weight: bold;
+}
+
+#foodtrucklocator_show_days_list .day {
+    cursor: pointer;
+    padding: 0.5rem;
 }
 
 #foodtrucklocator_show_days_list p .badgeCount {

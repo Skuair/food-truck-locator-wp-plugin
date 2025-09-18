@@ -58,6 +58,9 @@ $heightDiv = $shortcodeOptions['height'] ? $shortcodeOptions['height'] : '50vh';
     const strings = {
         now: '<?php esc_html_e('Now', 'food-truck-locator'); ?>',
         next: '<?php esc_html_e('Next', 'food-truck-locator'); ?>',
+        regularSlots: '<?php esc_html_e('Regular slots', 'food-truck-locator'); ?>',
+        oneoffDates: '<?php esc_html_e('Oneoff dates', 'food-truck-locator'); ?>',
+        today: '<?php esc_html_e('Today', 'food-truck-locator'); ?>',
         weekDays: [],
     };
 

@@ -20,6 +20,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 include(plugin_dir_path(__FILE__) . 'includes/FoodTruckLocator.php');
 include(plugin_dir_path(__FILE__) . 'includes/Queries.php');
+include(plugin_dir_path(__FILE__) . 'includes/Location.php');
 include(plugin_dir_path(__FILE__) . 'includes/settings-general-section.php');
 
 $plugin = new FoodTruckLocator('1.2.0');

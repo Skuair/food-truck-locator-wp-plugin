@@ -1,15 +1,15 @@
-# Copyright (C) 2024 Romain Rebotier
+# Copyright (C) 2025 Romain Rebotier
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Food Truck Locator 1.1.0\n"
+"Project-Id-Version: Food Truck Locator 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/food-truck-locator\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-27T06:49:39+00:00\n"
+"POT-Creation-Date: 2025-09-18T09:11:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: food-truck-locator\n"
@@ -37,7 +37,7 @@ msgid "All locations"
 msgstr ""
 
 #: includes/FoodTruckLocator.php:81
-#: views/edit.php:38
+#: views/edit.php:39
 msgid "Add a location"
 msgstr ""
 
@@ -100,8 +100,8 @@ msgid "Delete"
 msgstr ""
 
 #: includes/LocationsListTable.php:109
-#: views/edit.php:80
-#: views/edit.php:254
+#: views/edit.php:82
+#: views/edit.php:286
 msgid "Visible"
 msgstr ""
 
@@ -138,93 +138,108 @@ msgstr ""
 msgid "This will add a menu on the map to show the days when you have locations set. A click on a day will center the map on the related locations."
 msgstr ""
 
-#: views/edit.php:27
+#: views/edit.php:28
 msgid "No location found with this ID."
 msgstr ""
 
-#: views/edit.php:38
+#: views/edit.php:39
 msgid "Edit a location"
 msgstr ""
 
-#: views/edit.php:45
+#: views/edit.php:46
 msgid "Location name"
 msgstr ""
 
-#: views/edit.php:54
+#: views/edit.php:55
 msgid "Location description or additionnal information"
 msgstr ""
 
-#: views/edit.php:62
+#: views/edit.php:63
 msgid "Position"
 msgstr ""
 
-#: views/edit.php:72
+#: views/edit.php:73
 msgid "Time table"
 msgstr ""
 
-#: views/edit.php:75
-#: views/list.php:9
-msgid "Add"
+#: views/edit.php:76
+msgid "Add a regular slot"
 msgstr ""
 
-#: views/edit.php:89
+#: views/edit.php:77
+msgid "Add a oneoff date"
+msgstr ""
+
+#: views/edit.php:91
 msgid "Save changes"
 msgstr ""
 
-#: views/edit.php:103
-#: views/rendering.php:76
+#: views/edit.php:105
+#: views/rendering.php:79
 msgid "Monday"
 msgstr ""
 
-#: views/edit.php:107
-#: views/rendering.php:77
+#: views/edit.php:109
+#: views/rendering.php:80
 msgid "Tuesday"
 msgstr ""
 
-#: views/edit.php:111
-#: views/rendering.php:78
+#: views/edit.php:113
+#: views/rendering.php:81
 msgid "Wednesday"
 msgstr ""
 
-#: views/edit.php:115
-#: views/rendering.php:79
+#: views/edit.php:117
+#: views/rendering.php:82
 msgid "Thursday"
 msgstr ""
 
-#: views/edit.php:119
-#: views/rendering.php:80
-#: views/rendering.php:81
+#: views/edit.php:121
+#: views/rendering.php:83
+#: views/rendering.php:84
 msgid "Friday"
 msgstr ""
 
-#: views/edit.php:123
-#: views/rendering.php:82
+#: views/edit.php:125
+#: views/rendering.php:85
 msgid "Saturday"
 msgstr ""
 
-#: views/edit.php:127
-#: views/rendering.php:75
+#: views/edit.php:129
+#: views/rendering.php:78
 msgid "Sunday"
 msgstr ""
 
-#: views/edit.php:182
+#: views/edit.php:187
+msgid "Please correct the errors on the time table"
+msgstr ""
+
+#: views/edit.php:206
 msgid "Redirecting to locations list..."
 msgstr ""
 
-#: views/edit.php:217
+#: views/edit.php:209
+msgid "Go back to locations list"
+msgstr ""
+
+#: views/edit.php:244
 msgid "Hey! Drag me to one of your best spot!"
 msgstr ""
 
-#: views/edit.php:246
+#: views/edit.php:278
 msgid "From"
 msgstr ""
 
-#: views/edit.php:250
+#: views/edit.php:282
 msgid "To"
 msgstr ""
 
 #: views/list.php:8
 msgid "Food Truck locations"
+msgstr ""
+
+#: views/list.php:9
+msgid "Add"
 msgstr ""
 
 #: views/list.php:13
@@ -245,6 +260,18 @@ msgstr ""
 
 #: views/rendering.php:60
 msgid "Next"
+msgstr ""
+
+#: views/rendering.php:61
+msgid "Regular slots"
+msgstr ""
+
+#: views/rendering.php:62
+msgid "Oneoff dates"
+msgstr ""
+
+#: views/rendering.php:63
+msgid "Today"
 msgstr ""
 
 #: views/settings.php:6

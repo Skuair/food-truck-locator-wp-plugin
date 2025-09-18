@@ -1,7 +1,8 @@
 <?php
 if (!defined('ABSPATH')) die('No direct access allowed');
 
-$location = new stdClass();
+$location = new FoodTruckLocator_Location();
+$locationId = null;
 $timeTables = [];
 $settings = get_option('foodtrucklocator_settings');
 $markerColor = '#000';
@@ -10,8 +11,8 @@ if ($settings) {
         $markerColor = $settings['marker_color'];
     }
 }
-$locationId = sanitize_key($_GET['locationId']);
-if ($locationId) {
+if (isset($_GET['locationId'])) {
+    $locationId = sanitize_key($_GET['locationId']);
     $locationIdValidated = absint($locationId);
     $result = FoodTruckLocator_Queries::GetLocationById($locationIdValidated);
     if ($result) {
@@ -72,7 +73,7 @@ if ($locationId) {
                         <label><?php esc_html_e('Time table', 'food-truck-locator'); ?></label>
                     </th>
                     <td id="timetables">
-                        <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable();"><span class="dashicons dashicons-controls-repeat" style="vertical-align: middle;"></span> <?php esc_html_e('Add a regular date', 'food-truck-locator'); ?></button>
+                        <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable();"><span class="dashicons dashicons-controls-repeat" style="vertical-align: middle;"></span> <?php esc_html_e('Add a regular slot', 'food-truck-locator'); ?></button>
                         <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable({}, true);"><span class="dashicons dashicons-calendar-alt" style="vertical-align: middle;"></span> <?php esc_html_e('Add a oneoff date', 'food-truck-locator'); ?></button>
                     </td>
                 </tr>
@@ -181,10 +182,14 @@ if ($locationId) {
                     visible: jQuery(e).find('.visible').is(":checked") ? '1' : '0',
                 };
             });
+            if (feedback.children()[1]) {
+                feedback.children()[1].remove();
+            }
             if (errorOnTimeTable) {
                 feedback.removeClass().addClass('notice notice-error');
                 jQuery(feedback.children()[0]).html('<?php esc_html_e('Please correct the errors on the time table', 'food-truck-locator'); ?>');
             } else {
+                feedback.addClass('hidden');
                 jQuery('#timetables .timetable.error').removeClass('error');
                 jQuery.ajax({
                         data: {
@@ -204,21 +209,26 @@ if ($locationId) {
                             if (!location.id) {
                                 feedback.append('<p><?php esc_html_e('Redirecting to locations list...', 'food-truck-locator'); ?></p>');
                                 window.location.href = '<?php echo esc_url(admin_url('admin.php?page=foodtrucklocator-list')); ?>';
+                            } else {
+                                feedback.append('<p><a href="<?php echo esc_url(admin_url('admin.php?page=foodtrucklocator-list')); ?>"><?php esc_html_e('Go back to locations list', 'food-truck-locator'); ?></a></p>');
                             }
                         } else {
                             feedback.removeClass().addClass('notice notice-error');
-                            if (res.data.details) {
-                                feedback.append('<p><em>' + res.data.details + '</em></p>');
-                            }
                         }
                     })
                     .fail(error => {
                         feedback.removeClass().addClass('notice notice-error');
                         jQuery(feedback.children()[0]).html(error);
+                        if (feedback.children()[1]) {
+                            feedback.children()[1].remove();
+                        }
                     })
-                    .always(() => jQuery('html, body').animate({
-                        scrollTop: feedback.offset().top
-                    }, 2000));
+                    .always(() => {
+                        feedback.removeClass('hidden');
+                        jQuery('html, body').animate({
+                            scrollTop: feedback.offset().top
+                        }, 2000);
+                    });
             }
             e.preventDefault();
         });

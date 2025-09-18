@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Food Truck Locator 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/food-truck-"
 "locator\n"
-"POT-Creation-Date: 2024-09-27T06:49:39+00:00\n"
-"PO-Revision-Date: 2025-09-12 09:48+0200\n"
+"POT-Creation-Date: 2025-09-18T09:11:59+00:00\n"
+"PO-Revision-Date: 2025-09-18 11:13+0200\n"
 "Last-Translator: Romain Rebotier <contact@adreliaweb.fr>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -41,7 +41,7 @@ msgstr "https://www.adreliaweb.fr"
 msgid "All locations"
 msgstr "All locations"
 
-#: includes/FoodTruckLocator.php:81 views/edit.php:38
+#: includes/FoodTruckLocator.php:81 views/edit.php:39
 msgid "Add a location"
 msgstr "Add a location"
 
@@ -101,7 +101,7 @@ msgstr "Edit"
 msgid "Delete"
 msgstr "Delete"
 
-#: includes/LocationsListTable.php:109 views/edit.php:80 views/edit.php:254
+#: includes/LocationsListTable.php:109 views/edit.php:82 views/edit.php:286
 msgid "Visible"
 msgstr "Visible"
 
@@ -145,85 +145,101 @@ msgstr ""
 "This will add a menu on the map to show the days when you have locations "
 "set. A click on a day will center the map on the related locations."
 
-#: views/edit.php:27
+#: views/edit.php:28
 msgid "No location found with this ID."
 msgstr "No location found with this ID."
 
-#: views/edit.php:38
+#: views/edit.php:39
 msgid "Edit a location"
 msgstr "Edit a location"
 
-#: views/edit.php:45
+#: views/edit.php:46
 msgid "Location name"
 msgstr "Location name"
 
-#: views/edit.php:54
+#: views/edit.php:55
 msgid "Location description or additionnal information"
 msgstr "Location description or additionnal information"
 
-#: views/edit.php:62
+#: views/edit.php:63
 msgid "Position"
 msgstr "Position"
 
-#: views/edit.php:72
+#: views/edit.php:73
 msgid "Time table"
 msgstr "Time table"
 
-#: views/edit.php:75 views/list.php:9
-msgid "Add"
-msgstr "Add"
+#: views/edit.php:76
+msgid "Add a regular slot"
+msgstr "Add a regular slot"
 
-#: views/edit.php:89
+#: views/edit.php:77
+msgid "Add a oneoff date"
+msgstr "Add a oneoff date"
+
+#: views/edit.php:91
 msgid "Save changes"
 msgstr "Save changes"
 
-#: views/edit.php:103 views/rendering.php:76
+#: views/edit.php:105 views/rendering.php:79
 msgid "Monday"
 msgstr "Monday"
 
-#: views/edit.php:107 views/rendering.php:77
+#: views/edit.php:109 views/rendering.php:80
 msgid "Tuesday"
 msgstr "Tuesday"
 
-#: views/edit.php:111 views/rendering.php:78
+#: views/edit.php:113 views/rendering.php:81
 msgid "Wednesday"
 msgstr "Wednesday"
 
-#: views/edit.php:115 views/rendering.php:79
+#: views/edit.php:117 views/rendering.php:82
 msgid "Thursday"
 msgstr "Thursday"
 
-#: views/edit.php:119 views/rendering.php:80 views/rendering.php:81
+#: views/edit.php:121 views/rendering.php:83 views/rendering.php:84
 msgid "Friday"
 msgstr "Friday"
 
-#: views/edit.php:123 views/rendering.php:82
+#: views/edit.php:125 views/rendering.php:85
 msgid "Saturday"
 msgstr "Saturday"
 
-#: views/edit.php:127 views/rendering.php:75
+#: views/edit.php:129 views/rendering.php:78
 msgid "Sunday"
 msgstr "Sunday"
 
-#: views/edit.php:182
+#: views/edit.php:187
+msgid "Please correct the errors on the time table"
+msgstr "Please correct the errors on the time table"
+
+#: views/edit.php:206
 msgid "Redirecting to locations list..."
 msgstr "Redirecting to locations list..."
 
-#: views/edit.php:217
+#: views/edit.php:209
+msgid "Go back to locations list"
+msgstr "Go back to locations list"
+
+#: views/edit.php:244
 msgid "Hey! Drag me to one of your best spot!"
 msgstr "Hey! Drag me to one of your best spot!"
 
-#: views/edit.php:246
+#: views/edit.php:278
 msgid "From"
 msgstr "From"
 
-#: views/edit.php:250
+#: views/edit.php:282
 msgid "To"
 msgstr "To"
 
 #: views/list.php:8
 msgid "Food Truck locations"
 msgstr "Food Truck locations"
+
+#: views/list.php:9
+msgid "Add"
+msgstr "Add"
 
 #: views/list.php:13
 msgid "How to use it?"
@@ -248,6 +264,18 @@ msgstr "Now"
 #: views/rendering.php:60
 msgid "Next"
 msgstr "Next"
+
+#: views/rendering.php:61
+msgid "Regular slots"
+msgstr "Regular slots"
+
+#: views/rendering.php:62
+msgid "Oneoff dates"
+msgstr "Oneoff dates"
+
+#: views/rendering.php:63
+msgid "Today"
+msgstr "Today"
 
 #: views/settings.php:6
 msgid "Food Truck Locator settings"
