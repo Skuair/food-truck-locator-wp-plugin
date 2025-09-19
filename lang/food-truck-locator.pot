@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-18T09:11:59+00:00\n"
+"POT-Creation-Date: 2025-09-19T07:41:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: food-truck-locator\n"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: includes/LocationsListTable.php:109
 #: views/edit.php:82
-#: views/edit.php:286
+#: views/edit.php:295
 msgid "Visible"
 msgstr ""
 
@@ -167,7 +167,7 @@ msgid "Add a regular slot"
 msgstr ""
 
 #: views/edit.php:77
-msgid "Add a oneoff date"
+msgid "Add a one-off date"
 msgstr ""
 
 #: views/edit.php:91
@@ -210,27 +210,27 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: views/edit.php:187
+#: views/edit.php:190
 msgid "Please correct the errors on the time table"
 msgstr ""
 
-#: views/edit.php:206
+#: views/edit.php:211
 msgid "Redirecting to locations list..."
 msgstr ""
 
-#: views/edit.php:209
+#: views/edit.php:214
 msgid "Go back to locations list"
 msgstr ""
 
-#: views/edit.php:244
+#: views/edit.php:253
 msgid "Hey! Drag me to one of your best spot!"
 msgstr ""
 
-#: views/edit.php:278
+#: views/edit.php:287
 msgid "From"
 msgstr ""
 
-#: views/edit.php:282
+#: views/edit.php:291
 msgid "To"
 msgstr ""
 
@@ -267,7 +267,7 @@ msgid "Regular slots"
 msgstr ""
 
 #: views/rendering.php:62
-msgid "Oneoff dates"
+msgid "One-off dates"
 msgstr ""
 
 #: views/rendering.php:63

@@ -74,7 +74,7 @@ if (isset($_GET['locationId'])) {
                     </th>
                     <td id="timetables">
                         <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable();"><span class="dashicons dashicons-controls-repeat" style="vertical-align: middle;"></span> <?php esc_html_e('Add a regular slot', 'food-truck-locator'); ?></button>
-                        <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable({}, true);"><span class="dashicons dashicons-calendar-alt" style="vertical-align: middle;"></span> <?php esc_html_e('Add a oneoff date', 'food-truck-locator'); ?></button>
+                        <button type="button" class="button-primary" style="margin-bottom: 1rem;" onclick="javascript: addTimeTable({}, true);"><span class="dashicons dashicons-calendar-alt" style="vertical-align: middle;"></span> <?php esc_html_e('Add a one-off date', 'food-truck-locator'); ?></button>
                     </td>
                 </tr>
                 <tr>
@@ -163,10 +163,10 @@ if (isset($_GET['locationId'])) {
             let errorOnTimeTable = false;
             const timeTable = jQuery('#timetables .timetable').toArray().map((e) => {
                 const day = jQuery(e).find('.day');
-                const oneoffdate = jQuery(e).find('.oneoffdate');
+                const oneoffDate = jQuery(e).find('.oneoffDate');
                 const startTime = jQuery(e).find('.fromTime');
                 const endTime = jQuery(e).find('.toTime');
-                if (oneoffdate.length && !oneoffdate.val()) {
+                if (oneoffDate.length && !oneoffDate.val()) {
                     errorOnTimeTable = true;
                     jQuery(e).addClass('error');
                 }
@@ -176,7 +176,7 @@ if (isset($_GET['locationId'])) {
                 }
                 return {
                     weekday: day.val() ?? null,
-                    date: oneoffdate.val() ?? null,
+                    date: oneoffDate.val() ?? null,
                     start_time: startTime.val(),
                     end_time: endTime.val(),
                     visible: jQuery(e).find('.visible').is(":checked") ? '1' : '0',
@@ -189,6 +189,7 @@ if (isset($_GET['locationId'])) {
                 feedback.removeClass().addClass('notice notice-error');
                 jQuery(feedback.children()[0]).html('<?php esc_html_e('Please correct the errors on the time table', 'food-truck-locator'); ?>');
             } else {
+                jQuery('input[type=submit]').prop("disabled", true);
                 feedback.addClass('hidden');
                 jQuery('#timetables .timetable.error').removeClass('error');
                 jQuery.ajax({
@@ -224,6 +225,7 @@ if (isset($_GET['locationId'])) {
                         }
                     })
                     .always(() => {
+                        jQuery('input[type=submit]').prop("disabled", false);
                         feedback.removeClass('hidden');
                         jQuery('html, body').animate({
                             scrollTop: feedback.offset().top
@@ -272,7 +274,7 @@ if (isset($_GET['locationId'])) {
             .css('margin-bottom', '1rem')
             .appendTo('#timetables');
         if (oneoffDate) {
-            const oneoffDate = jQuery('<input>').attr('type', 'date').addClass('oneoffdate').appendTo(div);
+            const oneoffDate = jQuery('<input>').attr('type', 'date').addClass('oneoffDate').appendTo(div);
             oneoffDate.val(timeTable.date);
         } else {
             const selectDay = jQuery('<select>').addClass('day').appendTo(div);

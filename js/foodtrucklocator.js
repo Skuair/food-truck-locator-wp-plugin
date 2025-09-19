@@ -16,13 +16,18 @@ class FoodTruckLocator {
         markerColor,
         dayListContainer
     ) {
-        this.locations = locations.map((loc) => ({
-            ...loc,
-            date:
-                loc.date !== "0000-00-00" && loc.date !== null
-                    ? new Date(loc.date)
-                    : null,
-        }));
+        this.locations = locations
+            .map((loc) => ({
+                ...loc,
+                date:
+                    loc.date !== "0000-00-00" && loc.date !== null
+                        ? new Date(loc.date)
+                        : null,
+            }))
+            .filter(
+                (l) =>
+                    l.date === null || l.date >= new Date().setHours(0, 0, 0, 0)
+            );
         this.vacationMode = vacationMode;
         this.strings = strings;
         this.markerColor = markerColor;
@@ -184,6 +189,7 @@ class FoodTruckLocator {
                     this.daysWithMarkers[timeTable.weekDay].push(marker);
                 }
             }
+            oneOffTimeTables.sort((a, b) => a.date - b.date);
             if (oneOffTimeTables.length > 0) {
                 content += `<tr><td colspan="2" style="border: none; padding: ${
                     hasRegularSlots ? "0.5rem" : "0"
