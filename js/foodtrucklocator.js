@@ -21,7 +21,9 @@ class FoodTruckLocator {
                 ...loc,
                 date:
                     loc.date !== "0000-00-00" && loc.date !== null
-                        ? new Date(loc.date)
+                        ? (([y, m, d]) => new Date(y, m - 1, d))(
+                              loc.date.split("-").map(Number)
+                          )
                         : null,
             }))
             .filter(
