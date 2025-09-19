@@ -58,12 +58,15 @@ $heightDiv = $shortcodeOptions['height'] ? $shortcodeOptions['height'] : '50vh';
     const strings = {
         now: '<?php esc_html_e('Now', 'food-truck-locator'); ?>',
         next: '<?php esc_html_e('Next', 'food-truck-locator'); ?>',
+        regularSlots: '<?php esc_html_e('Regular slots', 'food-truck-locator'); ?>',
+        oneoffDates: '<?php esc_html_e('One-off dates', 'food-truck-locator'); ?>',
+        today: '<?php esc_html_e('Today', 'food-truck-locator'); ?>',
         weekDays: [],
     };
 
     // Try to get localized days of week, otherwise get them from backend
     try {
-        var baseDate = new Date(Date.UTC(2023, 11, 31)); // begin with a known sunday (2023-12-31)
+        var baseDate = new Date(2023, 11, 31); // begin with a known sunday (2023-12-31)
         for (i = 0; i < 7; i++) {
             strings.weekDays.push(baseDate.toLocaleDateString(window.navigator.language, {
                 weekday: 'long'

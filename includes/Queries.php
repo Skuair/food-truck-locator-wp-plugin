@@ -28,6 +28,7 @@ class FoodTruckLocator_Queries
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             location_id mediumint(9) NOT NULL,
             weekday tinyint(1) NOT NULL,
+            date DATE,
             start_time TIME,
             end_time TIME,
             visible tinyint(1) NOT NULL DEFAULT 1,
@@ -64,7 +65,7 @@ class FoodTruckLocator_Queries
     {
         global $wpdb;
         $sql = "SELECT l.id, l.name, l.description, l.latitude, l.longitude, l.created_at as 'location_created_at', l.updated_at as 'location_updated_at',";
-        $sql .= " t.id as 'timetable_id', t.weekday, t.start_time, t.end_time, t.created_at as 'timetable_created_at', t.updated_at as 'timetable_updated_at'";
+        $sql .= " t.id as 'timetable_id', t.weekday, t.date, t.start_time, t.end_time, t.created_at as 'timetable_created_at', t.updated_at as 'timetable_updated_at'";
         $sql .= " FROM {$wpdb->prefix}" . self::LOCATIONS_TABLE . " l";
         $sql .= " LEFT JOIN {$wpdb->prefix}" . self::TIMETABLES_TABLE . " t";
         $sql .= " ON l.id = t.location_id";
@@ -120,12 +121,13 @@ class FoodTruckLocator_Queries
         $wpdb->insert($wpdb->prefix . self::TIMETABLES_TABLE, [
             'location_id' => sanitize_key($locationId),
             'weekday' => filter_var($timeTable['weekday'], FILTER_SANITIZE_NUMBER_INT),
+            'date' => sanitize_text_field($timeTable['date']),
             'start_time' => sanitize_text_field($timeTable['start_time']),
             'end_time' => sanitize_text_field($timeTable['end_time']),
             'visible' => $timeTable['visible'] ? filter_var($timeTable['visible'], FILTER_SANITIZE_NUMBER_INT) : 0,
             'created_at' => date("c"),
             'updated_at' => date("c")
-        ], ['%d', '%d', '%s', '%s', '%s', '%s']);
+        ], ['%d', '%d', '%s', '%s', '%s', '%s', '%s']);
         return $wpdb->insert_id;
     }
 

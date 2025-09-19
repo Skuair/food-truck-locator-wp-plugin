@@ -5,6 +5,7 @@ class FoodTruckLocator {
     markerColor = "#000";
     map;
     daysWithMarkers = [];
+    oneOffDatesWithMarkers = [];
     layerGroupForDay;
     dayListContainer;
 
@@ -15,7 +16,20 @@ class FoodTruckLocator {
         markerColor,
         dayListContainer
     ) {
-        this.locations = locations;
+        this.locations = locations
+            .map((loc) => ({
+                ...loc,
+                date:
+                    loc.date !== "0000-00-00" && loc.date !== null
+                        ? (([y, m, d]) => new Date(y, m - 1, d))(
+                              loc.date.split("-").map(Number)
+                          )
+                        : null,
+            }))
+            .filter(
+                (l) =>
+                    l.date === null || l.date >= new Date().setHours(0, 0, 0, 0)
+            );
         this.vacationMode = vacationMode;
         this.strings = strings;
         this.markerColor = markerColor;
@@ -43,6 +57,7 @@ class FoodTruckLocator {
                 (e) => e.location.id === parseInt(location.id)
             );
             let nowTimeTable = this.checkCurrentLocation(
+                location.date,
                 location.weekday,
                 location.start_time,
                 location.end_time
@@ -50,6 +65,7 @@ class FoodTruckLocator {
             let timeTable = {
                 id: parseInt(location.timetable_id),
                 weekDay: parseInt(location.weekday),
+                date: location.date,
                 startTime: location.start_time,
                 endTime: location.end_time,
                 now: nowTimeTable,
@@ -84,7 +100,7 @@ class FoodTruckLocator {
             .flatMap((l) =>
                 l.timeTables.map((t) => ({
                     id: t.id,
-                    date: this.getNextWeekDay(t.weekDay, t.startTime),
+                    date: this.getNextWeekDay(t.date, t.weekDay, t.startTime),
                 }))
             )
             .sort((a, b) => a.date - b.date)[0];
@@ -146,7 +162,7 @@ class FoodTruckLocator {
     }
 
     generateMarkerPopup(location, timeTables, marker) {
-        let content = `<div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+        let content = `<div style="display: flex; margin-bottom: 0.75rem;">
             <div style="margin-right: 0.25rem;">📍</div>
             <div>
                 <strong style="font-size: 1rem;">${location.name}</strong><br />
@@ -154,15 +170,63 @@ class FoodTruckLocator {
             </div>
             </div>`;
         if (timeTables.length > 0) {
-            content +=
-                '<div id="markerPopupContentTimeTables" style="display: flex; align-items: center;">';
-            content +=
-                '<div style="margin-right: 0.25rem;">📆</div><div><table style="border: none; margin: 0;">';
+            const hasRegularSlots = timeTables.some((t) => t.date === null);
+            if (hasRegularSlots) {
+                content += `<div class="markerPopupContentTimeTables" style="display: flex;"><div style="margin-right: 0.25rem;">📆</div><div><table style="border: none; margin: 0;"><tr><td colspan="2" style="border: none; padding: 0; color: ${this.markerColor}">${this.strings.regularSlots}</td></tr>`;
+            }
+            const oneOffTimeTables = [];
             for (const timeTable of timeTables) {
-                content += `<tr>
+                if (timeTable.date) {
+                    oneOffTimeTables.push(timeTable);
+                    continue;
+                }
+                content += this.renderWeekdayInPopup(timeTable);
+
+                // Create a list of markers associated to their day in week (for show days option)
+                if (!this.daysWithMarkers[timeTable.weekDay].includes(marker)) {
+                    this.daysWithMarkers[timeTable.weekDay].push(marker);
+                }
+            }
+            content += "</table></div></div>";
+            oneOffTimeTables.sort((a, b) => a.date - b.date);
+            if (oneOffTimeTables.length > 0) {
+                content += `<div class="markerPopupContentTimeTables" style="display: flex; margin-top: ${
+                    hasRegularSlots ? "0.5rem" : "0"
+                };"><div style="margin-right: 0.25rem;">🎉</div><div><table style="border: none; margin: 0;"><tr><td colspan="2" style="border: none; padding: 0; color: ${
+                    this.markerColor
+                }">${this.strings.oneoffDates}</td></tr>`;
+                for (const oneOffTimeTable of oneOffTimeTables) {
+                    content += this.renderWeekdayInPopup(oneOffTimeTable, true);
+                    // Create a list of markers associated to their date (for show days option)
+                    const existingDate = this.oneOffDatesWithMarkers.findIndex(
+                        (d) =>
+                            d.date.valueOf() === oneOffTimeTable.date.valueOf()
+                    );
+                    if (existingDate === -1) {
+                        this.oneOffDatesWithMarkers.push({
+                            date: oneOffTimeTable.date,
+                            markers: [marker],
+                        });
+                    } else {
+                        this.oneOffDatesWithMarkers[existingDate].markers.push(
+                            marker
+                        );
+                    }
+                }
+                this.oneOffDatesWithMarkers.sort((a, b) => a.date - b.date);
+                content += "</table></div></div>";
+            }
+        }
+        return content;
+    }
+
+    renderWeekdayInPopup(timeTable, isOneOffDate = false) {
+        return `<tr>
                     <td style="border: none; padding: 0;">
                         <strong>${
-                            this.strings.weekDays[timeTable.weekDay]
+                            isOneOffDate
+                                ? this.computeLocaleDate(timeTable.date)
+                                : this.strings.weekDays[timeTable.weekDay]
                         }</strong>
                    </td>
                    <td style="border: none; padding: 0 0 0 0.25rem;">
@@ -181,15 +245,6 @@ class FoodTruckLocator {
                         }
                    </td> 
                 </tr>`;
-
-                // Create a list of markers associated to their day in week (for show days option)
-                if (!this.daysWithMarkers[timeTable.weekDay].includes(marker)) {
-                    this.daysWithMarkers[timeTable.weekDay].push(marker);
-                }
-            }
-        }
-        content += "</table></div></div>";
-        return content;
     }
 
     generateMarkerIcon(now) {
@@ -202,44 +257,56 @@ class FoodTruckLocator {
         });
     }
 
-    checkCurrentLocation(day, startTime, endTime) {
+    checkCurrentLocation(date, day, startTime, endTime) {
         const now = new Date();
         const startTimeExploded = startTime.split(":");
         const endTimeExploded = endTime.split(":");
-        const startTimeDate = new Date();
+        const startTimeDate = date ? new Date(date.getTime()) : new Date();
         startTimeDate.setHours(startTimeExploded[0]);
         startTimeDate.setMinutes(startTimeExploded[1]);
         startTimeDate.setSeconds(0);
         startTimeDate.setMilliseconds(0);
-        const endTimeDate = new Date();
+        const endTimeDate = date ? new Date(date.getTime()) : new Date();
         endTimeDate.setHours(endTimeExploded[0]);
         endTimeDate.setMinutes(endTimeExploded[1]);
         endTimeDate.setSeconds(0);
         endTimeDate.setMilliseconds(0);
-        return now.getDay() == day && now >= startTimeDate && now < endTimeDate;
+        return (
+            now >= startTimeDate &&
+            now < endTimeDate &&
+            (date || now.getDay() === day)
+        );
     }
 
-    getNextWeekDay(day, time) {
+    getNextWeekDay(date, day, time) {
         const now = new Date();
         const [hours, minutes] = time.split(":", 3);
-        const nowWithTime = new Date();
-        nowWithTime.setHours(hours);
-        nowWithTime.setMinutes(minutes);
-        nowWithTime.setSeconds(0);
-        nowWithTime.setMilliseconds(0);
-        // Calculate today (for possible next hours) or next same day of week
-        const nextDay =
-            now.getDay() !== day || now > nowWithTime
-                ? new Date(
-                      now.setDate(
-                          now.getDate() + ((7 - now.getDay() + day) % 7 || 7)
-                      )
-                  )
-                : now;
-        nextDay.setHours(hours);
-        nextDay.setMinutes(minutes);
-        nextDay.setSeconds(0);
-        nextDay.setMilliseconds(0);
+
+        // Reference date with today time
+        const todayAtTime = new Date(now.getTime());
+        todayAtTime.setHours(hours, minutes, 0, 0);
+
+        let nextDay;
+        if (now.getDay() === day && now <= todayAtTime) {
+            // Today is correct date and start time is not passed
+            nextDay = todayAtTime;
+        } else {
+            // Find next compliant day if the week
+            const daysToAdd = (day - now.getDay() + 7) % 7 || 7;
+            nextDay = new Date(now.getTime());
+            nextDay.setDate(now.getDate() + daysToAdd);
+            nextDay.setHours(hours, minutes, 0, 0);
+        }
+
+        if (date) {
+            // Check if the oneoff date is before the previous nextDay calculated
+            const nextOneOffDate = new Date(date.getTime());
+            nextOneOffDate.setHours(hours, minutes, 0, 0);
+            if (nextOneOffDate >= now && nextOneOffDate < nextDay) {
+                return nextOneOffDate;
+            }
+        }
+
         return nextDay;
     }
 
@@ -255,36 +322,72 @@ class FoodTruckLocator {
         return timePart + (meridianPart ? " " + meridianPart : "");
     }
 
+    computeLocaleDate(date) {
+        return this.isToday(date)
+            ? this.strings.today
+            : date.toLocaleDateString();
+    }
+
     generateDaysList(div) {
+        if (this.daysWithMarkers.length > 0) {
+            const p = document.createElement("p");
+            p.innerHTML = this.strings.regularSlots;
+            p.className = "header";
+            p.style.backgroundColor = this.markerColor;
+            div.appendChild(p);
+        }
         for (const [day, markers] of this.daysWithMarkers.entries()) {
             if (markers.length > 0) {
-                const p = document.createElement("p");
-                const isToday = new Date().getDay() === day;
-                if (isToday) {
-                    p.style.backgroundColor = this.markerColor + "7a";
-                }
-                p.innerHTML =
-                    strings.weekDays[day] +
-                    (markers.length > 1
-                        ? ` <span class="badgeCount">${markers.length}</span>`
-                        : ``);
-                p.addEventListener(
-                    "mouseenter",
-                    () => (p.style.backgroundColor = this.markerColor)
-                );
-                p.addEventListener(
-                    "mouseleave",
-                    () =>
-                        (p.style.backgroundColor = isToday
-                            ? this.markerColor + "7a"
-                            : "transparent")
-                );
-                p.addEventListener("click", () =>
-                    this.openLocationsForDayOfWeek(day)
+                const p = this.renderDayInList(null, day, markers);
+                div.appendChild(p);
+            }
+        }
+        if (this.oneOffDatesWithMarkers.length > 0) {
+            const p = document.createElement("p");
+            p.innerHTML = this.strings.oneoffDates;
+            p.className = "header";
+            p.style.backgroundColor = this.markerColor;
+            div.appendChild(p);
+        }
+        for (const oneOffDateMarker of this.oneOffDatesWithMarkers) {
+            if (oneOffDateMarker.markers.length > 0) {
+                const p = this.renderDayInList(
+                    oneOffDateMarker.date,
+                    null,
+                    oneOffDateMarker.markers
                 );
                 div.appendChild(p);
             }
         }
+    }
+
+    renderDayInList(date, day, markers) {
+        const p = document.createElement("p");
+        p.className = "day";
+        const isToday = date ? this.isToday(date) : this.isSameDayOfWeek(day);
+        if (isToday) {
+            p.style.backgroundColor = this.markerColor + "7a";
+        }
+        p.innerHTML =
+            (date ? date.toLocaleDateString() : this.strings.weekDays[day]) +
+            (markers.length > 1
+                ? ` <span class="badgeCount">${markers.length}</span>`
+                : ``);
+        p.addEventListener(
+            "mouseenter",
+            () => (p.style.backgroundColor = this.markerColor)
+        );
+        p.addEventListener(
+            "mouseleave",
+            () =>
+                (p.style.backgroundColor = isToday
+                    ? this.markerColor + "7a"
+                    : "transparent")
+        );
+        p.addEventListener("click", () =>
+            this.openLocationsForDayOfWeek(date, day)
+        );
+        return p;
     }
 
     toggleDayList() {
@@ -293,25 +396,41 @@ class FoodTruckLocator {
         }
     }
 
-    openLocationsForDayOfWeek(dayOfWeek) {
-        if (this.daysWithMarkers[dayOfWeek].length > 0) {
+    openLocationsForDayOfWeek(date, dayOfWeek) {
+        const markers = date
+            ? this.oneOffDatesWithMarkers.find(
+                  (d) => d.date.valueOf() === date.valueOf()
+              )?.markers || []
+            : this.daysWithMarkers[dayOfWeek];
+        if (markers.length > 0) {
             if (this.layerGroupForDay) {
                 this.map.removeLayer(this.layerGroupForDay);
             }
             this.map.eachLayer((layer) => layer.closePopup());
             setTimeout(() => {
-                for (const marker of this.daysWithMarkers[dayOfWeek]) {
+                for (const marker of markers) {
                     marker.openPopup();
                 }
             }, 250);
 
-            this.layerGroupForDay = L.featureGroup(
-                this.daysWithMarkers[dayOfWeek]
-            ).addTo(this.map);
+            this.layerGroupForDay = L.featureGroup(markers).addTo(this.map);
             this.map.fitBounds(this.layerGroupForDay.getBounds(), {
                 padding: [100, 100],
             });
             this.toggleDayList();
         }
+    }
+
+    isSameDayOfWeek(day) {
+        return new Date().getDay() === day;
+    }
+
+    isToday(date) {
+        const now = new Date();
+        return (
+            date.getFullYear() === now.getFullYear() &&
+            date.getMonth() === now.getMonth() &&
+            date.getDate() === now.getDate()
+        );
     }
 }

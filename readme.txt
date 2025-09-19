@@ -4,7 +4,7 @@ Tags: location, timetable, food truck, track, events
 Requires at least: 6.3
 Tested up to: 6.8.2
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,13 +12,13 @@ Add a map of your food truck locations by date and time to keep your customers i
 
 == Description ==
 This plugin allows you to add your food truck locations in a simple way.
-Just create some locations with the admin interface by positioning a marker on a map, add a location name and description and timetables (day of week, start time and end time).
+Just create some locations with the admin interface by positioning a marker on a map, add a location name and description and timetables (one-off date or regular day of week, start time and end time).
 
 Your customers will see a map with your week locations, and depending when they visit your website, the current location (pulsing marker) or next location will pop up on the map, showing immediately where you are now or next time.
 They will be able to select a day they want to directly move the map to the right location of the chosen day.
 
 **Features**
-– Create locations of your food truck and add days of the week and hours you are in
+– Create locations of your food truck and add one-off dates or regular days of the week and hours you are in
 – Map marker color customization
 – Vacation mode: activate and set a message to inform your customers that you are on vacation (the map will be darkened and the message will be overlayed on the map)
 – Map directly informs visitors where you are now, depending on the browser local time, or your next location
@@ -44,7 +44,7 @@ To add your locations map in a page or a post, add the shortcode [foodtrucklocat
 
 == Frequently Asked Questions ==
 = How to add my map? =
-Insert the following shortcode [foodtrucklocator]
+Insert the following shortcode [foodtrucklocator]. More details are on the edit location page of locations in the admin plugin page.
 
 = The plugin is not in my native language =
 Do not hesitate to contribute to the translations by opening a issue here: https://github.com/Skuair/food-truck-locator-wp-plugin
@@ -64,6 +64,9 @@ For support for using the plugin, use the WordPress plugin forum.
 4. Day list mode
 
 == Changelog ==
+= 1.2.0=
+Now supports one-off dates! You can now mix regular days and unique dates for your spots.
+Fixes for far timezones.
 = 1.1.1 =
 Fixes for PHP warnings and translations.
 = 1.1.0 =
