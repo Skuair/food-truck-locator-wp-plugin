@@ -21,18 +21,18 @@
     filter: brightness(50%);
 }
 
-#foodtrucklocator_map #markerPopupContentTimeTables .timeTable {
+#foodtrucklocator_map .markerPopupContentTimeTables .timeTable {
     display: inline-block;
     border-radius: 5px;
     color: #fff;
     padding: 0 2px;
 }
 
-#foodtrucklocator_map #markerPopupContentTimeTables .timeTable.now {
+#foodtrucklocator_map .markerPopupContentTimeTables .timeTable.now {
     background-color: red;
 }
 
-#foodtrucklocator_map #markerPopupContentTimeTables .timeTable.next {
+#foodtrucklocator_map .markerPopupContentTimeTables .timeTable.next {
     background-color: dodgerblue;
 }
 

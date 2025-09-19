@@ -162,7 +162,7 @@ class FoodTruckLocator {
     }
 
     generateMarkerPopup(location, timeTables, marker) {
-        let content = `<div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+        let content = `<div style="display: flex; margin-bottom: 0.75rem;">
             <div style="margin-right: 0.25rem;">📍</div>
             <div>
                 <strong style="font-size: 1rem;">${location.name}</strong><br />
@@ -171,7 +171,7 @@ class FoodTruckLocator {
             </div>`;
         if (timeTables.length > 0) {
             content +=
-                '<div id="markerPopupContentTimeTables" style="display: flex; align-items: center;">';
+                '<div class="markerPopupContentTimeTables" style="display: flex;">';
             content +=
                 '<div style="margin-right: 0.25rem;">📆</div><div><table style="border: none; margin: 0;">';
             const hasRegularSlots = timeTables.some((t) => t.date === null);
@@ -191,13 +191,14 @@ class FoodTruckLocator {
                     this.daysWithMarkers[timeTable.weekDay].push(marker);
                 }
             }
+            content += "</table></div></div>";
             oneOffTimeTables.sort((a, b) => a.date - b.date);
             if (oneOffTimeTables.length > 0) {
-                content += `<tr><td colspan="2" style="border: none; padding: ${
+                content += `<div class="markerPopupContentTimeTables" style="display: flex; margin-top: ${
                     hasRegularSlots ? "0.5rem" : "0"
-                } 0 0 0; color: ${this.markerColor}">${
-                    this.strings.oneoffDates
-                }</td></tr>`;
+                };"><div style="margin-right: 0.25rem;">🎉</div><div><table style="border: none; margin: 0;"><tr><td colspan="2" style="border: none; padding: 0; color: ${
+                    this.markerColor
+                }">${this.strings.oneoffDates}</td></tr>`;
                 for (const oneOffTimeTable of oneOffTimeTables) {
                     content += this.renderWeekdayInPopup(oneOffTimeTable, true);
                     // Create a list of markers associated to their date (for show days option)
@@ -217,9 +218,9 @@ class FoodTruckLocator {
                     }
                 }
                 this.oneOffDatesWithMarkers.sort((a, b) => a.date - b.date);
+                content += "</table></div></div>";
             }
         }
-        content += "</table></div></div>";
         return content;
     }
 
