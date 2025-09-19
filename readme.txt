@@ -64,7 +64,7 @@ For support for using the plugin, use the WordPress plugin forum.
 4. Day list mode
 
 == Changelog ==
-= 1.2.0=
+= 1.2.0 =
 Now supports one-off dates! You can now mix regular days and unique dates for your spots.
 Fixes for far timezones.
 = 1.1.1 =
