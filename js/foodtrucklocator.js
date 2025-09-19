@@ -170,13 +170,9 @@ class FoodTruckLocator {
             </div>
             </div>`;
         if (timeTables.length > 0) {
-            content +=
-                '<div class="markerPopupContentTimeTables" style="display: flex;">';
-            content +=
-                '<div style="margin-right: 0.25rem;">📆</div><div><table style="border: none; margin: 0;">';
             const hasRegularSlots = timeTables.some((t) => t.date === null);
             if (hasRegularSlots) {
-                content += `<tr><td colspan="2" style="border: none; padding: 0; color: ${this.markerColor}">${this.strings.regularSlots}</td></tr>`;
+                content += `<div class="markerPopupContentTimeTables" style="display: flex;"><div style="margin-right: 0.25rem;">📆</div><div><table style="border: none; margin: 0;"><tr><td colspan="2" style="border: none; padding: 0; color: ${this.markerColor}">${this.strings.regularSlots}</td></tr>`;
             }
             const oneOffTimeTables = [];
             for (const timeTable of timeTables) {
