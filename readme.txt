@@ -2,9 +2,9 @@
 Contributors: skuair87
 Tags: location, timetable, food truck, track, events
 Requires at least: 6.3
-Tested up to: 6.8.2
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,8 @@ For support for using the plugin, use the WordPress plugin forum.
 4. Day list mode
 
 == Changelog ==
+= 1.2.1 =
+Updated "Tested up to" with WordPress 6.9.
 = 1.2.0 =
 Now supports one-off dates! You can now mix regular days and unique dates for your spots.
 Fixes for far timezones.
